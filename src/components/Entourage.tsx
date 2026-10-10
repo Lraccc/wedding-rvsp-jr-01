@@ -26,7 +26,7 @@ function GroupGrid({ group }: { group: EntourageGroup }) {
         ? columns.map((column, index) => (
             <p
               key={`heading-${index}`}
-              className="mb-1 self-end font-serif text-lg leading-snug text-rose italic sm:text-xl"
+              className="mb-1 self-end font-serif text-lg leading-snug text-rosewood italic sm:text-xl"
             >
               {column.heading}
             </p>
@@ -36,7 +36,7 @@ function GroupGrid({ group }: { group: EntourageGroup }) {
         columns.map((column, index) => (
           <p
             key={`${row}-${index}`}
-            className="font-serif text-[1.02rem] leading-snug text-espresso sm:text-[1.2rem]"
+            className="font-serif text-[1.02rem] leading-snug text-wine sm:text-[1.2rem]"
           >
             {column.names[row]}
           </p>
@@ -61,7 +61,7 @@ export function Entourage() {
         {wedding.entourage.map((group, groupIndex) => (
           <Reveal key={groupIndex} className="text-center">
             {group.title ? (
-              <h3 className="mb-5 text-label-lg font-medium tracking-label text-rose uppercase">
+              <h3 className="mb-5 text-label-lg font-medium tracking-label text-crimson uppercase">
                 {group.title}
               </h3>
             ) : null}

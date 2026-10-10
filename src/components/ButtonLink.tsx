@@ -3,12 +3,19 @@ import { cn } from "@/lib/cn";
 
 type ButtonLinkProps = {
   href: string;
+  /** `gold` is for crimson backgrounds such as the velvet bands. */
+  tone?: "crimson" | "gold";
   className?: string;
   children: ReactNode;
 };
 
-/** Taupe rectangular call-to-action. External links open in a new tab. */
-export function ButtonLink({ href, className, children }: ButtonLinkProps) {
+const TONES = {
+  crimson: "bg-crimson text-paper after:border-gold-light/45 hover:bg-garnet active:bg-garnet",
+  gold: "bg-gold-light text-wine after:border-wine/20 hover:bg-[#f1dfae] active:bg-[#f1dfae]",
+};
+
+/** Rectangular call-to-action with a thin inner rule. External links open in a new tab. */
+export function ButtonLink({ href, tone = "crimson", className, children }: ButtonLinkProps) {
   const isExternal = /^https?:\/\//.test(href);
 
   return (
@@ -17,7 +24,9 @@ export function ButtonLink({ href, className, children }: ButtonLinkProps) {
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       className={cn(
-        "inline-flex min-h-12 items-center justify-center gap-2 rounded-[2px] bg-taupe px-10 py-3.5 text-label-lg font-medium tracking-label text-espresso-deep uppercase shadow-soft transition-colors duration-300 hover:bg-taupe-deep active:bg-taupe-deep",
+        "relative inline-flex min-h-12 items-center justify-center gap-2 rounded-[2px] px-10 py-3.5 text-label-lg font-medium tracking-label uppercase shadow-soft transition-colors duration-300",
+        "after:pointer-events-none after:absolute after:inset-[3px] after:rounded-[1px] after:border",
+        TONES[tone],
         className,
       )}
     >

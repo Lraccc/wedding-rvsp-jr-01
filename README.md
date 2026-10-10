@@ -49,11 +49,13 @@ crop it. Export photos as WebP or JPEG around 1600–2400px on the long side to 
 
 ### Replace the placeholders
 
-| Placeholder                                                    | Replace with                                     |
-| -------------------------------------------------------------- | ------------------------------------------------ |
-| `public/images/qr/unionbank.png`, `landbank.png`, `gotyme.png` | Your InstaPay QR codes                           |
-| `public/images/og-image.jpg` (1200×630)                        | Link-preview image for Messenger, Facebook, etc. |
-| `src/app/icon.svg`, `src/app/apple-icon.png`                   | Favicon and home-screen icon                     |
+| Placeholder                                  | Replace with                                     |
+| -------------------------------------------- | ------------------------------------------------ |
+| `public/images/og-image.jpg` (1200×630)      | Link-preview image for Messenger, Facebook, etc. |
+| `src/app/icon.svg`, `src/app/apple-icon.png` | Favicon and home-screen icon                     |
+
+The Gift Guide QR code is `public/images/qr/instapay.png`, listed under `gifts` in the config. Add
+more entries there to show several QR codes side by side.
 
 ### Music
 
@@ -79,8 +81,10 @@ the start of the file has downloaded, and cover art sits at the start.
 ### Design tokens
 
 Tailwind v4 is configured in CSS: the `@theme` block at the top of `src/app/globals.css` holds the
-palette (cream, taupe, rose, espresso…), type scale, letter-spacing, section spacing, shadows and
-easing. Change a value there and every component that uses it follows. Fonts are loaded in
+red and gold palette (ivory, crimson, wine, rosewood, gold…), type scale, letter-spacing, section
+spacing, shadows and easing. Change a value there and every component that uses it follows. The
+`velvet` utility in the same file draws the crimson bands behind the date and the footer. The
+envelope, wax seal and icons use hex values directly in their SVGs. Fonts are loaded in
 `src/app/layout.tsx`.
 
 ## Deploy

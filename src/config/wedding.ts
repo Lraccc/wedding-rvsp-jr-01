@@ -38,6 +38,9 @@ export type Note = {
 export type GiftAccount = {
   bank: string;
   qr: string;
+  /** Pixel size of the QR image, so the page reserves the right space. */
+  width: number;
+  height: number;
 };
 
 export type EntourageColumn = {
@@ -145,7 +148,7 @@ const mapLink = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 
 const ceremonyQuery = "Corpus Christi Parish, Tubod, Iligan City";
-const receptionQuery = "Fiesta Infanta Restaurant, Gen. Luna St, Infanta, Quezon";
+const receptionQuery = "Plaza Alemania Hotel, Quezon Avenue Extension, Iligan City";
 
 const groom = "Mark Robert";
 const bride = "Donabelle";
@@ -206,15 +209,13 @@ export const wedding: WeddingConfig = {
       address: "Tubod, Iligan City, Lanao del Norte",
       mapEmbedUrl: mapEmbed(ceremonyQuery),
       mapUrl: mapLink(ceremonyQuery),
-      placeholder: true,
     },
     {
       label: "Reception",
-      name: "Fiesta Infanta Restaurant",
-      address: "Gen. Luna St, Purok 2, Infanta, Quezon",
+      name: "Plaza Alemania Hotel",
+      address: "6th Floor Berlin Hall, Iligan City, Lanao del Norte",
       mapEmbedUrl: mapEmbed(receptionQuery),
       mapUrl: mapLink(receptionQuery),
-      placeholder: true,
     },
   ],
 
@@ -234,11 +235,7 @@ export const wedding: WeddingConfig = {
     },
   ],
 
-  gifts: [
-    { bank: "UnionBank", qr: "/images/qr/unionbank.png" },
-    { bank: "LandBank", qr: "/images/qr/landbank.png" },
-    { bank: "GoTyme", qr: "/images/qr/gotyme.png" },
-  ],
+  gifts: [{ bank: "InstaPay", qr: "/images/qr/instapay.png", width: 222, height: 269 }],
 
   hashtag: {
     tag: "#MarkRobertAndDonabelle",
@@ -426,13 +423,13 @@ export const wedding: WeddingConfig = {
   attire: {
     dressCode: "Formal",
     intro:
-      "We would love to see you in soft, earthy neutrals. Here is a little guide to help you dress for the day.",
+      "We would love to see you in rich shades of red with a touch of gold. Here is a little guide to help you dress for the day.",
     groups: [
       {
         title: "Principal Sponsors",
         items: [
           { who: "Ninong", what: "Barong Tagalog with black slacks" },
-          { who: "Ninang", what: "Long gown or Filipiniana in champagne or taupe" },
+          { who: "Ninang", what: "Long gown or Filipiniana in red or gold" },
         ],
       },
       {
@@ -444,12 +441,12 @@ export const wedding: WeddingConfig = {
       },
     ],
     palette: [
-      { name: "Champagne", hex: "#E9DCC9" },
-      { name: "Taupe", hex: "#C9B5A5" },
-      { name: "Mocha", hex: "#A88B7D" },
-      { name: "Dusty Rose", hex: "#C9A59B" },
-      { name: "Sage", hex: "#A9B39B" },
-      { name: "Espresso", hex: "#5C4A3F" },
+      { name: "Cherry Red", hex: "#BE1E2D" },
+      { name: "Crimson", hex: "#961A30" },
+      { name: "Burgundy", hex: "#64121F" },
+      { name: "Champagne", hex: "#EADBBE" },
+      { name: "Gold", hex: "#CBA65F" },
+      { name: "Antique Gold", hex: "#9E7B3B" },
     ],
     note: "Kindly refrain from wearing white, ivory, or denim.",
   },
@@ -485,7 +482,8 @@ export const wedding: WeddingConfig = {
     },
     {
       question: "What should I wear?",
-      answer: "Formal attire in soft neutrals. Our Attire Guide above has the full color palette.",
+      answer:
+        "Formal attire in shades of red with a touch of gold. Our Attire Guide above has the full color palette.",
     },
     {
       question: "What gift should we give?",
@@ -495,7 +493,7 @@ export const wedding: WeddingConfig = {
   ],
 
   music: {
-    src: "/audio/how-do-i-live-sax-cover.mp3",
+    src: "/audio/syempre-ikaw-lng.mp3", //how-do-i-live-sax-cover.mp3
     volume: 0.55,
   },
 

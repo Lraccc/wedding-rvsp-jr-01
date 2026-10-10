@@ -61,7 +61,7 @@ export function Nav() {
 
       <nav
         aria-label="Sections"
-        className="pointer-events-auto mx-auto min-w-0 rounded-full bg-taupe p-1 shadow-soft"
+        className="pointer-events-auto mx-auto min-w-0 rounded-full bg-crimson p-1 shadow-soft ring-1 ring-gold/50 [--focus-ring:var(--color-gold-light)]"
       >
         <ul
           ref={listRef}
@@ -77,10 +77,10 @@ export function Nav() {
                   aria-current={isActive ? "location" : undefined}
                   className={cn(
                     "relative block rounded-full px-3 py-2 text-[0.625rem] font-medium tracking-[0.2em] whitespace-nowrap uppercase transition-colors duration-300 sm:px-4 sm:text-label sm:tracking-[0.24em]",
-                    "after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:bg-ink after:transition-transform after:duration-500 sm:after:inset-x-4",
+                    "after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-center after:bg-gold-light after:transition-transform after:duration-500 sm:after:inset-x-4",
                     isActive
-                      ? "text-ink after:scale-x-100"
-                      : "text-espresso-deep after:scale-x-0 hover:text-ink",
+                      ? "text-gold-light after:scale-x-100"
+                      : "text-paper/80 after:scale-x-0 hover:text-paper",
                   )}
                 >
                   {item.label}

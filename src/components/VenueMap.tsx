@@ -10,7 +10,7 @@ export function VenueMap() {
     <section aria-labelledby="venue-title" className="px-6 py-section">
       <SectionHeading id="venue-title">Venue Map</SectionHeading>
 
-      <div className="mx-auto mt-14 grid max-w-5xl divide-y divide-taupe/60 md:grid-cols-2 md:divide-x md:divide-y-0">
+      <div className="mx-auto mt-14 grid max-w-5xl divide-y divide-gold/40 md:grid-cols-2 md:divide-x md:divide-y-0">
         {wedding.venues.map((venue, index) => (
           <Reveal
             key={venue.label}
@@ -19,17 +19,17 @@ export function VenueMap() {
             className="row-span-5 grid grid-rows-subgrid justify-items-center py-12 text-center first:pt-0 last:pb-0 md:px-8 md:py-0 lg:px-12"
           >
             <div className="flex flex-col items-center">
-              <p className="text-label tracking-label text-rose uppercase">{venue.label}</p>
+              <p className="text-label tracking-label text-rosewood uppercase">{venue.label}</p>
               {venue.placeholder ? (
-                <p className="mt-3 rounded-full border border-dashed border-taupe-deep bg-linen px-3.5 py-1 text-label tracking-label text-rose uppercase">
+                <p className="mt-3 rounded-full border border-dashed border-gold bg-champagne px-3.5 py-1 text-label tracking-label text-rosewood uppercase">
                   Sample location only
                 </p>
               ) : null}
             </div>
-            <h3 className="mt-3 max-w-sm font-serif text-[1.65rem] leading-snug font-medium text-espresso">
+            <h3 className="mt-3 max-w-sm font-serif text-[1.65rem] leading-snug font-medium text-wine">
               {venue.name}
             </h3>
-            <p className="mt-2 text-sm tracking-wide text-rose">{venue.address}</p>
+            <p className="mt-2 text-sm tracking-wide text-rosewood">{venue.address}</p>
 
             <MapEmbed src={venue.mapEmbedUrl} title={`Map of ${venue.name}`} />
 
@@ -37,7 +37,7 @@ export function VenueMap() {
               href={venue.mapUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center gap-2 border-b border-taupe pb-1 text-label tracking-label text-espresso uppercase transition-colors hover:border-espresso hover:text-ink"
+              className="mt-5 inline-flex items-center gap-2 border-b border-gold pb-1 text-label tracking-label text-crimson uppercase transition-colors hover:border-crimson hover:text-garnet"
             >
               Open in Google Maps
               <ExternalLink className="size-3.5" strokeWidth={1.5} aria-hidden="true" />

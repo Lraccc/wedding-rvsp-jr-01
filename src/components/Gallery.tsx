@@ -64,7 +64,7 @@ export function Gallery() {
                     type="button"
                     onClick={() => setOpenIndex(index)}
                     aria-label={`View photo ${index + 1} of ${photos.length}: ${photo.alt}`}
-                    className="group block w-full cursor-zoom-in overflow-hidden rounded-md bg-linen shadow-card"
+                    className="group block w-full cursor-zoom-in overflow-hidden rounded-md bg-champagne shadow-card"
                   >
                     <Image
                       src={photo.src}

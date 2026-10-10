@@ -12,11 +12,11 @@ export function Hashtag() {
       <Reveal className="px-6 text-center">
         <h2
           id="hashtag-title"
-          className="font-serif text-[clamp(1.3rem,6.4vw,3.6rem)] leading-tight font-medium tracking-[0.02em] break-words text-espresso"
+          className="font-serif text-[clamp(1.3rem,6.4vw,3.6rem)] leading-tight font-medium tracking-[0.02em] break-words text-crimson"
         >
           {hashtag.tag}
         </h2>
-        <p className="mx-auto mt-5 max-w-xl font-serif text-[1.3rem] leading-relaxed text-rose italic">
+        <p className="mx-auto mt-5 max-w-xl font-serif text-[1.3rem] leading-relaxed text-rosewood italic">
           {hashtag.message}
         </p>
         <ButtonLink href={hashtag.driveUrl} className="mt-9">
@@ -32,7 +32,7 @@ export function Hashtag() {
           height={hashtag.photo.height}
           sizes="100vw"
           style={{ objectPosition: hashtag.photo.position }}
-          className="h-auto max-h-[88svh] w-full bg-linen object-cover"
+          className="h-auto max-h-[88svh] w-full bg-champagne object-cover"
         />
       </Reveal>
     </section>

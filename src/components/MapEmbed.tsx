@@ -20,10 +20,10 @@ export function MapEmbed({ src, title }: MapEmbedProps) {
   return (
     <div
       ref={ref}
-      className="relative mt-7 aspect-[13/10] w-full max-w-[390px] overflow-hidden rounded-lg border border-taupe/70 bg-linen shadow-card"
+      className="relative mt-7 aspect-[13/10] w-full max-w-[390px] overflow-hidden rounded-lg border border-gold/50 bg-champagne shadow-card"
     >
       <MapPin
-        className="absolute top-1/2 left-1/2 size-6 -translate-1/2 text-taupe-deep"
+        className="absolute top-1/2 left-1/2 size-6 -translate-1/2 text-gold"
         strokeWidth={1.25}
         aria-hidden="true"
       />

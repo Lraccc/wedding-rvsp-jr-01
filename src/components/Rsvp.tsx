@@ -17,12 +17,14 @@ export function Rsvp() {
       </SectionHeading>
 
       <Reveal className="mx-auto mt-8 max-w-xl text-center">
-        <p className="font-serif text-[1.35rem] leading-relaxed text-rose italic">{rsvp.message}</p>
-        <p className="mt-6 text-label-lg tracking-label text-espresso uppercase">
-          Please respond on or before{" "}
-          <span className="font-semibold text-ink">{rsvp.deadline}</span>
+        <p className="font-serif text-[1.35rem] leading-relaxed text-rosewood italic">
+          {rsvp.message}
         </p>
-        <ButtonLink href={rsvp.formUrl} className="mt-9">
+        <p className="mt-6 text-label-lg tracking-label text-wine uppercase">
+          Please respond on or before{" "}
+          <span className="font-semibold text-crimson">{rsvp.deadline}</span>
+        </p>
+        <ButtonLink href="https://forms.gle/EzxEQbRRSpzq3jsU6" className="mt-9">
           RSVP Here
         </ButtonLink>
       </Reveal>
@@ -33,7 +35,7 @@ export function Rsvp() {
             src={rsvp.embedUrl}
             title="RSVP form"
             loading="lazy"
-            className="h-[70rem] w-full rounded-xl border border-taupe/60 bg-white shadow-card"
+            className="h-[70rem] w-full rounded-xl border border-gold/40 bg-white shadow-card"
           />
         </Reveal>
       ) : null}

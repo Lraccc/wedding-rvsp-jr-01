@@ -128,7 +128,7 @@ export function Lightbox({ photos, index, onChange }: LightboxProps) {
           </div>
 
           <p
-            className="mt-5 text-center text-label tracking-label text-paper/80 uppercase"
+            className="mt-5 text-center text-label tracking-label text-gold-light/90 uppercase"
             aria-live="polite"
           >
             {index + 1} / {photos.length}

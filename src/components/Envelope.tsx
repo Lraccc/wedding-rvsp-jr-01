@@ -146,12 +146,12 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
       onAnimationComplete={(definition) => {
         if (definition === "visible" && isReplay) onCovered?.();
       }}
-      className="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto overscroll-contain bg-cream bg-[radial-gradient(ellipse_at_50%_55%,#fffdf9_0%,#faf8f5_55%,#f1e9df_100%)]"
+      className="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto overscroll-contain bg-ivory bg-[radial-gradient(ellipse_at_50%_55%,#fffdf9_0%,#fbf7f1_55%,#f2e6d6_100%)]"
     >
       <div className="flex min-h-full flex-col items-center px-5 pt-[max(3.5rem,8svh)] pb-10">
         <p
           id={titleId}
-          className="text-center font-script text-[clamp(2.75rem,9.5vw,4.75rem)] leading-[1.15] text-espresso"
+          className="text-center font-script text-[clamp(2.75rem,9.5vw,4.75rem)] leading-[1.15] text-crimson"
         >
           {envelope.title}
         </p>
@@ -173,19 +173,19 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
                   <span className="envelope-back" />
 
                   <span className="envelope-letter" data-part="letter">
-                    <span className="absolute inset-[3.2cqw] rounded-[1px] border border-taupe/70" />
-                    <span className="absolute inset-[4.4cqw] rounded-[1px] border border-taupe/35" />
+                    <span className="absolute inset-[3.2cqw] rounded-[1px] border border-gold/70" />
+                    <span className="absolute inset-[4.4cqw] rounded-[1px] border border-gold/35" />
                     <span className="absolute inset-x-0 top-[6.6cqw] flex flex-col items-center text-center">
-                      <span className="text-[1.9cqw] font-medium tracking-[0.42em] text-rose uppercase">
+                      <span className="text-[1.9cqw] font-medium tracking-[0.42em] text-crimson uppercase">
                         {envelope.letterGreeting}
                       </span>
                       <span
-                        className="mt-[1.2cqw] font-script leading-[1.05] text-espresso"
+                        className="mt-[1.2cqw] font-script leading-[1.05] text-crimson"
                         style={LETTER_NAMES_STYLE}
                       >
                         {couple.groom} &amp; {couple.bride}
                       </span>
-                      <span className="mt-[1cqw] font-serif text-[2.5cqw] tracking-[0.3em] text-rose">
+                      <span className="mt-[1cqw] font-serif text-[2.5cqw] tracking-[0.3em] text-gold-deep">
                         {date.short}
                       </span>
                     </span>
@@ -212,7 +212,7 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
                         data-part="crack"
                         d="M51 3 47 14 53 27 46 41 54 55 47 70 52 84 49 97"
                         fill="none"
-                        stroke="#1b130e"
+                        stroke="#5a4214"
                         strokeWidth="1.6"
                         strokeLinejoin="round"
                         pathLength={1}
@@ -227,7 +227,7 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
           </button>
 
           <span data-part="hint" className="envelope-hint block" aria-hidden="true">
-            <span className="block animate-pulse-soft text-label tracking-wide-xl text-rose uppercase">
+            <span className="block animate-pulse-soft text-label tracking-wide-xl text-rosewood uppercase">
               {envelope.prompt}
             </span>
           </span>
@@ -251,7 +251,7 @@ function EdgeShadow({ d, dy, strength = 1 }: { d: string; dy: number; strength?:
     <g
       transform={`translate(0 ${dy})`}
       fill="none"
-      stroke="#46382f"
+      stroke="#2a0a10"
       strokeLinecap="round"
       strokeLinejoin="round"
     >
@@ -277,19 +277,20 @@ function EnvelopeFlap() {
     >
       <defs>
         <linearGradient id={front} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#f4ece2" />
-          <stop offset="1" stopColor="#eadfd1" />
+          <stop offset="0" stopColor="#b0283e" />
+          <stop offset="1" stopColor="#9a1e33" />
         </linearGradient>
+        {/* Gold foil lining, shown once the flap has folded back. */}
         <linearGradient id={inner} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#c3ad97" />
-          <stop offset="1" stopColor="#d7c6b3" />
+          <stop offset="0" stopColor="#c9a766" />
+          <stop offset="1" stopColor="#e5cd96" />
         </linearGradient>
       </defs>
       <path data-part="flap-inner" d={FLAP_PATH} fill={`url(#${inner})`} style={HIDDEN} />
       <g data-part="flap-front">
         <EdgeShadow d={FLAP_EDGE} dy={2.4} strength={1.6} />
         <path d={FLAP_PATH} fill={`url(#${front})`} />
-        <path d={FLAP_LINER} fill="none" stroke="#a88b7d" strokeOpacity="0.4" strokeWidth="0.8" />
+        <path d={FLAP_LINER} fill="none" stroke="#e5cd96" strokeOpacity="0.7" strokeWidth="0.8" />
       </g>
     </svg>
   );
@@ -311,16 +312,16 @@ function EnvelopePocket() {
     >
       <defs>
         <linearGradient id={left} x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#ebdfd0" />
-          <stop offset="1" stopColor="#dccbb7" />
+          <stop offset="0" stopColor="#a52239" />
+          <stop offset="1" stopColor="#8c1a2d" />
         </linearGradient>
         <linearGradient id={right} x1="1" y1="0" x2="0" y2="0">
-          <stop offset="0" stopColor="#ebdfd0" />
-          <stop offset="1" stopColor="#dccbb7" />
+          <stop offset="0" stopColor="#a52239" />
+          <stop offset="1" stopColor="#8c1a2d" />
         </linearGradient>
         <linearGradient id={bottom} x1="0" y1="1" x2="0" y2="0">
-          <stop offset="0" stopColor="#e6d8c7" />
-          <stop offset="1" stopColor="#efe5d9" />
+          <stop offset="0" stopColor="#941b2f" />
+          <stop offset="1" stopColor="#ab243a" />
         </linearGradient>
         <clipPath id={clip}>
           <rect width="300" height="200" rx="6" />

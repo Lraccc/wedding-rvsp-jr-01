@@ -23,7 +23,7 @@ export function MusicToggle() {
     >
       {isPlaying ? (
         <span
-          className="absolute inset-0 animate-ring rounded-full border border-taupe"
+          className="absolute inset-0 animate-ring rounded-full border border-gold"
           aria-hidden="true"
         />
       ) : null}

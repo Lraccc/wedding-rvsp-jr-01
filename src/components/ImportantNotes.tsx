@@ -12,10 +12,10 @@ export function ImportantNotes() {
       <div className="mx-auto mt-14 max-w-3xl space-y-16 text-center">
         {wedding.notes.map((note) => (
           <Reveal key={note.title}>
-            <h3 className="text-label-lg font-medium tracking-label text-espresso uppercase">
+            <h3 className="text-label-lg font-medium tracking-label text-crimson uppercase">
               {note.title}
             </h3>
-            <p className="mx-auto mt-4 max-w-2xl font-serif text-[1.3rem] leading-relaxed text-rose italic sm:text-[1.4rem]">
+            <p className="mx-auto mt-4 max-w-2xl font-serif text-[1.3rem] leading-relaxed text-rosewood italic sm:text-[1.4rem]">
               {note.body}
             </p>
             {note.showGiftQRs ? <GiftQR /> : null}

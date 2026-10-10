@@ -172,14 +172,14 @@ const DOT_PATH = [
   ...DOTS.map(([x, y, r]) => dot(x, y, r)),
 ].join("");
 
-/** [path, delay (s), duration (s)] for each stroked layer. */
-const STROKES: Array<[string, number, number]> = [
+/** [path, delay (s), duration (s), color class] for each stroked layer. Without a class it is gold. */
+const STROKES: Array<[string, number, number, string?]> = [
   [STEM, 0, 2.8],
   [BRANCHES, 0.3, 2.6],
   [LEAF_PATH, 0.5, 3],
   [TENDRILS, 0.9, 2.4],
-  [BUD_PATH, 0.8, 2.4],
-  [PETAL_PATH, 1, 2.4],
+  [BUD_PATH, 0.8, 2.4, "text-crimson"],
+  [PETAL_PATH, 1, 2.4, "text-crimson"],
 ];
 
 function makeVariants(reduceMotion: boolean): { stroke: Variants; fill: Variants } {
@@ -223,8 +223,8 @@ function Vine({ className }: { className?: string }) {
       animate={isIntroOpen ? "hidden" : "visible"}
       className={className}
     >
-      {STROKES.map(([d, delay, duration]) => (
-        <motion.path key={d} d={d} variants={stroke} custom={[delay, duration]} />
+      {STROKES.map(([d, delay, duration, color]) => (
+        <motion.path key={d} d={d} variants={stroke} custom={[delay, duration]} className={color} />
       ))}
       <motion.path d={DOT_PATH} fill="currentColor" stroke="none" variants={fill} />
     </motion.svg>
@@ -252,7 +252,7 @@ export function FloralDecor() {
   if (!isMounted) return null;
 
   return (
-    <div aria-hidden="true" className="text-rose-light">
+    <div aria-hidden="true" className="text-gold">
       <div className="pointer-events-none fixed inset-y-0 left-0 z-0 flex items-center">
         <Vine className={vineSize} />
       </div>

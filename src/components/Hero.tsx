@@ -42,7 +42,7 @@ export function Hero() {
         <motion.p
           data-reveal=""
           variants={rise}
-          className="max-w-xs text-label tracking-label text-rose uppercase sm:max-w-none"
+          className="max-w-xs text-label tracking-label text-rosewood uppercase sm:max-w-none"
         >
           {hero.blessing}
         </motion.p>
@@ -50,7 +50,7 @@ export function Hero() {
         <motion.p
           data-reveal=""
           variants={rise}
-          className="mt-8 text-label-lg tracking-wide-xl text-espresso uppercase"
+          className="mt-8 text-label-lg tracking-wide-xl text-wine uppercase"
         >
           {hero.intro}
         </motion.p>
@@ -63,13 +63,17 @@ export function Hero() {
           className="mt-3 font-script text-[clamp(3.75rem,12vw,7.5rem)] leading-[1.05] font-normal outline-none"
         >
           <span className="block">
-            <span className="text-gradient bg-linear-to-b from-ink via-espresso-deep to-espresso drop-shadow-[0_3px_5px_rgb(70_56_48/0.18)]">
+            <span className="text-gradient bg-linear-to-b from-wine via-garnet to-crimson drop-shadow-[0_3px_5px_rgb(86_16_32/0.18)]">
               {couple.groom}
             </span>
           </span>{" "}
-          <span className="block text-[0.42em] leading-[1.3] text-rose-light">and</span>{" "}
+          <span className="block text-[0.42em] leading-[1.3]">
+            <span className="text-gradient bg-linear-to-b from-gold via-gold-deep to-gold">
+              and
+            </span>
+          </span>{" "}
           <span className="block">
-            <span className="text-gradient bg-linear-to-b from-rose via-rose-light to-[#b9a091] drop-shadow-[0_3px_5px_rgb(70_56_48/0.14)]">
+            <span className="text-gradient bg-linear-to-b from-crimson via-crimson to-ruby drop-shadow-[0_3px_5px_rgb(86_16_32/0.14)]">
               {couple.bride}
             </span>
           </span>
@@ -78,7 +82,7 @@ export function Hero() {
         <motion.p
           data-reveal=""
           variants={rise}
-          className="mt-7 max-w-xs text-label tracking-label text-rose uppercase sm:max-w-xl"
+          className="mt-7 max-w-xs text-label tracking-label text-rosewood uppercase sm:max-w-xl"
         >
           {hero.invitation}
         </motion.p>
@@ -91,7 +95,7 @@ export function Hero() {
             height={hero.photo.height}
             sizes="(max-width: 560px) 92vw, 500px"
             loading="eager"
-            className="h-auto w-full rounded-photo bg-linen shadow-photo"
+            className="h-auto w-full rounded-photo bg-champagne shadow-photo ring-1 ring-gold/60 ring-offset-8 ring-offset-ivory"
           />
         </motion.figure>
       </motion.div>

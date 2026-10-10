@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. In Tailwind v4 this @theme block is the Tailwind config:
+ * every token becomes utilities, e.g. --color-taupe → bg-taupe / text-taupe,
+ * --spacing-section → py-section, --tracking-label → tracking-label.
+ */
+@theme {
+  /* Palette */
+  --color-cream: #faf8f5;
+  --color-paper: #fffdf9;
+  --color-linen: #f3ece3;
+  --color-taupe: #c9b5a5;
+  --color-taupe-deep: #b9a391;
+  --color-rose: #886c5f;
+  --color-rose-light: #a88b7d;
+  --color-espresso: #5c4a3f;
+  --color-espresso-deep: #463830;
+  --color-ink: #2f2520;
+
+  /* Envelope */
+  --color-envelope: #e6d8c7;
+  --color-envelope-light: #f0e7dc;
+  --color-envelope-fold: #dfcfbc;
+  --color-envelope-inner: #cbb7a2;
+  --color-wax: #5c4a3f;
+  --color-wax-deep: #36291f;
+
+  /* Type */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.85;
+  --text-label-lg: 0.75rem;
+  --text-label-lg--line-height: 1.85;
+  --tracking-label: 0.28em;
+  --tracking-wide-xl: 0.42em;
+
+  /* Spacing */
+  --spacing-section: 6rem;
+  --spacing-section-lg: 8.5rem;
+  --spacing-nav: 6.5rem;
+
+  /* Shape & depth */
+  --radius-photo: 0.625rem;
+  --shadow-soft: 0 12px 32px -16px rgb(92 74 63 / 0.4);
+  --shadow-card: 0 18px 40px -24px rgb(92 74 63 / 0.45), 0 2px 8px -4px rgb(92 74 63 / 0.12);
+  --shadow-photo: 0 40px 70px -40px rgb(70 56 48 / 0.6), 0 8px 20px -12px rgb(70 56 48 / 0.25);
+
+  --ease-elegant: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-pulse-soft: pulse-soft 2.8s ease-in-out infinite;
+  --animate-ring: ring 2.4s ease-out infinite;
+
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 0.35;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes ring {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    100% {
+      transform: scale(1.65);
+      opacity: 0;
+    }
+  }
+}
+
+/* next/font exposes each family as a CSS variable on <html>. */
+@theme inline {
+  --font-script: var(--font-great-vibes), "Great Vibes", cursive;
+  --font-serif: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scrollbar-gutter: stable;
+    background-color: var(--color-cream);
+    color: var(--color-espresso);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* The envelope intro and the photo lightbox lock page scrolling while open. */
+  html:has([data-scroll-lock]) {
+    overflow: hidden;
+  }
+
+  /* Skips layout and paint of the page while the envelope fully covers it. */
+  .content-deferred {
+    content-visibility: hidden;
+  }
+
+  body {
+    min-height: 100svh;
+    background-color: var(--color-cream);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: rgb(201 181 165 / 0.55);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Script fonts overhang their box; padding keeps gradient-clipped swashes from being cut off. */
+@utility text-gradient {
+  display: inline-block;
+  padding: 0.12em 0.18em 0.2em;
+  margin: -0.12em -0.18em -0.2em;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ---------------------------------------------------------------------------
+ * Envelope intro: 3D flap, layering and hover motion.
+ * Layers inside .envelope (back to front): back panel, letter, pocket, flap, seal.
+ * ------------------------------------------------------------------------- */
+
+.envelope-scene {
+  --env-w: clamp(15rem, min(88vw, calc((100svh - 17rem) * 0.94)), 30rem);
+}
+
+/*
+ * Shares the free height with a spacer under the hint so the envelope sits near the middle,
+ * but never gets shorter than the room the flap needs once it folds open above the envelope.
+ */
+.envelope-headroom {
+  flex: 1 1 0;
+  min-height: calc(var(--env-w) * 0.42 + 1.5rem);
+}
+
+/* Follows the sealed envelope, which sits 14% of its height higher than the stage bottom. */
+.envelope-hint {
+  margin-top: calc(2.5rem - var(--env-w) * 0.0933);
+}
+
+.envelope-trigger {
+  display: block;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.envelope-trigger[data-state="closed"]:focus-visible {
+  outline-offset: 10px;
+}
+
+.envelope-trigger:not([data-state="closed"]) {
+  cursor: default;
+}
+
+.envelope-lift {
+  display: block;
+  transition: translate 0.6s var(--ease-elegant);
+}
+
+.envelope-wiggle {
+  display: block;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .envelope-trigger[data-state="closed"]:hover .envelope-lift {
+    translate: 0 -7px;
+  }
+
+  .envelope-trigger[data-state="closed"]:hover .envelope-wiggle {
+    animation: envelope-wiggle 0.9s var(--ease-elegant);
+  }
+
+  .envelope-trigger[data-state="closed"]:hover .envelope-back {
+    box-shadow:
+      0 34px 50px -24px rgb(70 56 48 / 0.55),
+      0 10px 18px -10px rgb(70 56 48 / 0.25);
+  }
+}
+
+.envelope-trigger[data-state="closed"]:focus-visible .envelope-lift {
+  translate: 0 -7px;
+}
+
+@keyframes envelope-wiggle {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  30% {
+    rotate: -1.3deg;
+  }
+  60% {
+    rotate: 0.9deg;
+  }
+  82% {
+    rotate: -0.3deg;
+  }
+}
+
+.envelope {
+  position: relative;
+  display: block;
+  width: var(--env-w);
+  aspect-ratio: 3 / 2;
+  container-type: inline-size;
+  perspective: 1100px;
+  /* Sealed pose: lifted and tilted. Keep in sync with CLOSED_LIFT in Envelope.tsx. */
+  transform: translateY(-14%) rotate(-2deg);
+}
+
+.envelope > * {
+  position: absolute;
+  display: block;
+}
+
+.envelope-back {
+  inset: 0;
+  z-index: 1;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #c4af99 0%, var(--color-envelope-inner) 45%, #d6c5b2 100%);
+  box-shadow:
+    0 26px 44px -24px rgb(70 56 48 / 0.5),
+    0 8px 14px -8px rgb(70 56 48 / 0.22);
+  transition: box-shadow 0.6s var(--ease-elegant);
+}
+
+.envelope-letter {
+  left: 5%;
+  right: 5%;
+  top: 3%;
+  height: 94%;
+  z-index: 2;
+  border-radius: 3px;
+  background:
+    radial-gradient(120% 60% at 50% 0%, #fffefb 0%, transparent 70%),
+    linear-gradient(180deg, var(--color-paper) 0%, #f8f2ea 100%);
+  box-shadow:
+    0 1px 2px rgb(92 74 63 / 0.14),
+    0 10px 22px -14px rgb(92 74 63 / 0.4);
+}
+
+.envelope-pocket {
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.envelope-flap {
+  left: 0;
+  top: 0;
+  z-index: 4;
+  width: 100%;
+  height: 40cqw;
+  transform-origin: 50% 0%;
+}
+
+.envelope-seal {
+  left: 50%;
+  top: 56%;
+  z-index: 5;
+  width: 22%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+}
+
+.envelope-seal > * {
+  position: absolute;
+  inset: 0;
+  display: block;
+  filter: drop-shadow(0 3px 3px rgb(40 30 24 / 0.35));
+}
+
+.seal-half-left {
+  clip-path: polygon(
+    0 0,
+    51% 0,
+    47% 14%,
+    53% 27%,
+    46% 41%,
+    54% 55%,
+    47% 70%,
+    52% 84%,
+    49% 100%,
+    0 100%
+  );
+}
+
+.seal-half-right {
+  clip-path: polygon(
+    51% 0,
+    100% 0,
+    100% 100%,
+    49% 100%,
+    52% 84%,
+    47% 70%,
+    54% 55%,
+    46% 41%,
+    53% 27%,
+    47% 14%
+  );
+}

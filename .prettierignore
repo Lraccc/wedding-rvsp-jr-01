@@ -1,0 +1,8 @@
+.next
+out
+node_modules
+public
+package-lock.json
+next-env.d.ts
+AGENTS.md
+wedding_entourage.md

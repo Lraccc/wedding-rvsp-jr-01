@@ -6,8 +6,8 @@ It is a fully static site, so it can be hosted for free on Vercel, Netlify or Cl
 
 **Stack:** Next.js 16 (App Router, static export) · TypeScript · Tailwind CSS v4 ·
 Framer Motion · `next/font` (Great Vibes, Cormorant Garamond, Inter) · lucide-react.
-There is no backend: RSVPs go to a Google Form, photos to a shared Google Drive folder,
-and maps are Google Maps embeds.
+There is no backend: RSVPs go to a Google Form, guests share their photos on Facebook or
+Instagram with the wedding hashtag, and maps are Google Maps embeds.
 
 ## Run it locally
 
@@ -30,9 +30,10 @@ npm run dev          # http://localhost:3000
 ## Edit the content
 
 Everything a couple would change lives in **`src/config/wedding.ts`**: names, monogram, date and
-time lines, envelope title, hero wording, venues and map links, RSVP form and deadline, notes,
-gift QR codes, hashtag and Drive link, entourage, gallery, attire guide, FAQs, music, and the site
-URL used for link previews. Each field is typed, so your editor will flag mistakes.
+time lines, envelope title and verse, hero wording, venues and map links, RSVP form and deadline,
+notes, gift QR codes, hashtag and photo-sharing steps, entourage, gallery, attire guide, FAQs,
+music, and the site URL used for link previews. Each field is typed, so your editor will flag
+mistakes.
 
 ### Photos
 
@@ -40,7 +41,7 @@ URL used for link previews. Each field is typed, so your editor will flag mistak
 | ---------------------------------------- | ------------------------------------------------ |
 | `public/images/couple-portrait.webp`     | Hero portrait under the couple's names           |
 | `public/images/hashtag-photo.webp`       | Full-width photo under the hashtag               |
-| `public/images/gallery/photo-01…10.webp` | Photos section, in the order listed in `gallery` |
+| `public/images/gallery/photo-01…38.webp` | Photos section, in the order listed in `gallery` |
 
 To swap a photo, replace the file (or point the config at a new one) and update its `width`,
 `height` and `alt` in the config, so the page reserves the right space and screen readers describe
@@ -68,8 +69,6 @@ the start of the file has downloaded, and cover art sits at the start.
 
 - **RSVP:** set `rsvp.formUrl` to your Google Form's share link. To also show the form on the
   page, open the form, choose **Send → `<>`**, and paste the iframe's `src` into `rsvp.embedUrl`.
-- **Photo uploads:** create a Google Drive folder, share it so guests can add files, and paste its
-  link into `hashtag.driveUrl`.
 - **Maps:** each venue builds its embed and "Open in Google Maps" links from the venue name. For an
   exact pin, open the place in Google Maps, choose **Share → Embed a map**, and paste only the
   iframe's `src` into `mapEmbedUrl`.

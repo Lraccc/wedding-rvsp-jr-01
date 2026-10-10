@@ -6,13 +6,16 @@ import { Reveal } from "./Reveal";
 type SectionHeadingProps = {
   id: string;
   eyebrow?: string;
+  /** Small decorative icon above the eyebrow. */
+  icon?: ReactNode;
   className?: string;
   children: ReactNode;
 };
 
-export function SectionHeading({ id, eyebrow, className, children }: SectionHeadingProps) {
+export function SectionHeading({ id, eyebrow, icon, className, children }: SectionHeadingProps) {
   return (
     <Reveal className={cn("text-center", className)}>
+      {icon}
       {eyebrow ? (
         <p className="mb-2 text-label tracking-label text-rosewood uppercase">{eyebrow}</p>
       ) : null}

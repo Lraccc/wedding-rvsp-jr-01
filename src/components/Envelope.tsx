@@ -4,6 +4,7 @@ import { motion, useAnimate, useReducedMotion, type Variants } from "framer-moti
 import { useEffect, useId, useRef, useState } from "react";
 import { wedding } from "@/config/wedding";
 import { useAudio } from "@/hooks/useAudio";
+import { Flourish } from "./Flourish";
 import { WaxSeal } from "./WaxSeal";
 
 type Phase = "closed" | "opening" | "open";
@@ -26,7 +27,7 @@ const EASE_IN = [0.55, 0, 0.9, 0.45] as const;
 const LETTER_RISE = "-43.6%";
 
 /** The sealed envelope sits this much higher (share of its height) and settles as it opens. Matches globals.css. */
-const CLOSED_LIFT = "-14%";
+const CLOSED_LIFT = "-50%";
 
 const overlay: Variants = {
   hidden: { opacity: 0 },
@@ -50,7 +51,7 @@ const part = (name: string) => `[data-part="${name}"]`;
 const wait = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }: EnvelopeProps) {
-  const { envelope, couple, date } = wedding;
+  const { envelope, couple, date, hashtag } = wedding;
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const [phase, setPhase] = useState<Phase>("closed");
   const hasStarted = useRef(false);
@@ -148,12 +149,26 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
       }}
       className="fixed inset-0 z-50 overflow-x-hidden overflow-y-auto overscroll-contain bg-ivory bg-[radial-gradient(ellipse_at_50%_55%,#fffdf9_0%,#fbf7f1_55%,#f2e6d6_100%)]"
     >
-      <div className="flex min-h-full flex-col items-center px-5 pt-[max(3.5rem,8svh)] pb-10">
+      {/* A definite height (growing to fit on short screens) lets the stage below size the envelope. */}
+      <div className="flex h-full min-h-min flex-col items-center px-5 pt-[max(3.5rem,8svh)] pb-10">
         <p
           id={titleId}
           className="text-center font-script text-[clamp(2.75rem,9.5vw,4.75rem)] leading-[1.15] text-crimson"
         >
           {envelope.title}
+        </p>
+
+        <figure className="mt-1 max-w-2xl text-center">
+          <figcaption className="text-label tracking-label text-rosewood uppercase">
+            {envelope.verse.reference}
+          </figcaption>
+          <blockquote className="mt-1.5 font-serif text-[clamp(1.05rem,4.3vw,1.35rem)] leading-snug text-balance text-wine italic">
+            “{envelope.verse.text}”
+          </blockquote>
+        </figure>
+        <Flourish className="mt-3 w-24 text-gold" />
+        <p className="mt-2 font-serif text-[clamp(1rem,4.6vw,1.3rem)] leading-tight font-medium tracking-[0.04em] text-crimson">
+          {hashtag.tag}
         </p>
 
         <div className="envelope-scene flex w-full flex-1 flex-col items-center">

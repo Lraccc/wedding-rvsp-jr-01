@@ -173,22 +173,32 @@
  * Layers inside .envelope (back to front): back panel, letter, pocket, flap, seal.
  * ------------------------------------------------------------------------- */
 
+/*
+ * Everything under the title and verse. As a size container it lets the envelope fill the height
+ * that is left: the headroom and the settled envelope take about 1.02 × its width plus 1.5rem,
+ * the sealed envelope with its hint less. Free height collects under the hint.
+ * The min-height fits the smallest envelope, so very short screens scroll instead.
+ * 100cqh only resolves when the parent's height is definite, hence h-full on it in Envelope.tsx.
+ */
 .envelope-scene {
-  --env-w: clamp(15rem, min(88vw, calc((100svh - 17rem) * 0.94)), 30rem);
+  container-type: size;
+  min-height: 20.5rem;
+  --env-w: clamp(15rem, min(88vw, calc((100cqh - 5.5rem) * 0.98)), 30rem);
 }
 
 /*
- * Shares the free height with a spacer under the hint so the envelope sits near the middle,
- * but never gets shorter than the room the flap needs once it folds open above the envelope.
+ * Room above the settled envelope. The sealed envelope rises into it (50% of its height is
+ * 0.333 × its width, plus about 0.017 for the tilt), staying about 1.5rem below the text.
+ * Once open, the flap reaches about 0.42 × the width up and may overlap the text, which is fine.
  */
 .envelope-headroom {
-  flex: 1 1 0;
-  min-height: calc(var(--env-w) * 0.42 + 1.5rem);
+  flex: none;
+  height: calc(var(--env-w) * 0.35 + 1.5rem);
 }
 
-/* Follows the sealed envelope, which sits 14% of its height higher than the stage bottom. */
+/* Follows the sealed envelope, which sits 50% of its height above where it settles to open. */
 .envelope-hint {
-  margin-top: calc(2.5rem - var(--env-w) * 0.0933);
+  margin-top: calc(2.5rem - var(--env-w) * 0.3333);
 }
 
 .envelope-trigger {
@@ -198,7 +208,13 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* The ring goes on the lifted, tilted envelope rather than the button's untransformed box. */
 .envelope-trigger[data-state="closed"]:focus-visible {
+  outline: none;
+}
+
+.envelope-trigger[data-state="closed"]:focus-visible .envelope {
+  outline: 2px solid var(--focus-ring, var(--color-crimson));
   outline-offset: 10px;
 }
 
@@ -258,8 +274,10 @@
   aspect-ratio: 3 / 2;
   container-type: inline-size;
   perspective: 1100px;
+  /* Rounds the focus ring's corners. */
+  border-radius: 6px;
   /* Sealed pose: lifted and tilted. Keep in sync with CLOSED_LIFT in Envelope.tsx. */
-  transform: translateY(-14%) rotate(-2deg);
+  transform: translateY(-50%) rotate(-2deg);
 }
 
 .envelope > * {

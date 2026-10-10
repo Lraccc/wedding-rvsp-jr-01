@@ -86,6 +86,8 @@ export type WeddingConfig = {
   };
   envelope: {
     title: string;
+    /** Bible verse under the title; the wedding hashtag is shown below it. */
+    verse: { reference: string; text: string };
     prompt: string;
     letterGreeting: string;
   };
@@ -116,9 +118,16 @@ export type WeddingConfig = {
   notes: Note[];
   gifts: GiftAccount[];
   hashtag: {
+    /** Small capitals above the heading. */
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    /** Shown as numbered steps; the hashtag follows the last one. */
+    steps: string[];
     tag: string;
-    message: string;
-    driveUrl: string;
+    closing: string;
+    /** Shown above the couple's names. */
+    signOff: string;
     photo: Photo;
   };
   entourage: EntourageGroup[];
@@ -171,6 +180,10 @@ export const wedding: WeddingConfig = {
 
   envelope: {
     title: "Gummery Nuptials",
+    verse: {
+      reference: "Mark 10:9",
+      text: "Therefore what God has joined together, let no one separate.",
+    },
     prompt: "Click to open",
     letterGreeting: "You are invited",
   },
@@ -238,10 +251,17 @@ export const wedding: WeddingConfig = {
   gifts: [{ bank: "InstaPay", qr: "/images/qr/instapay.png", width: 222, height: 269 }],
 
   hashtag: {
-    tag: "#MarkRobertAndDonabelle",
-    message:
-      "Help us capture our special day and share it by using our hashtag! Please upload your photos to our shared Drive.",
-    driveUrl: "https://drive.google.com/drive/folders/your-shared-folder-id",
+    eyebrow: "Don’t just attend",
+    heading: "Share the Love!",
+    intro: "Help us capture every moment of our special day!",
+    steps: [
+      "Take photos and videos.",
+      "Upload them to Facebook or Instagram.",
+      "Add our official wedding hashtag:",
+    ],
+    tag: "#MarkTheDateForDonnabelle",
+    closing: "Let’s make our wedding memories last forever!",
+    signOff: "With love,",
     photo: {
       src: "/images/hashtag-photo.webp",
       alt: `${groom} and ${bride} walking hand in hand on the beach near the Burj Al Arab`,
@@ -417,6 +437,174 @@ export const wedding: WeddingConfig = {
       alt: `Close-up of ${groom} slipping the ring onto ${bride}'s finger`,
       width: 1600,
       height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-11.webp",
+      alt: `Title card reading "Mark & Dona, Pre-Wedding Dubai UAE" over a photo of ${groom} and ${bride} at a winged sculpture below the Burj Khalifa`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-12.webp",
+      alt: `${groom} on one knee proposing to ${bride} beside the pools of the Palace Downtown, with the Burj Khalifa behind them`,
+      width: 1600,
+      height: 1248,
+    },
+    {
+      src: "/images/gallery/photo-13.webp",
+      alt: `${groom} and ${bride} embracing beside a palm-lined pool in Downtown Dubai`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-14.webp",
+      alt: `${groom} kissing ${bride} on the cheek beside a pool under a carved wooden arch`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-15.webp",
+      alt: `${groom} kneeling to offer ${bride} a ring on a poolside walkway below the Burj Khalifa`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-16.webp",
+      alt: `${groom} and ${bride} at the end of a long reflecting pool in front of the Palace Downtown`,
+      width: 1600,
+      height: 1044,
+    },
+    {
+      src: "/images/gallery/photo-17.webp",
+      alt: `${groom} and ${bride} embracing between the bronze wings of a sculpture, with the Burj Khalifa rising behind them`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-18.webp",
+      alt: `${bride} hugging ${groom} between the bronze wings, both smiling at the camera`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-19.webp",
+      alt: `${groom} and ${bride} gazing at each other on the pedestal of the winged sculpture`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-20.webp",
+      alt: `${groom} and ${bride} beneath the winged sculpture, with the Burj Khalifa towering above them`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-21.webp",
+      alt: `${groom} and ${bride} standing together under the bronze wings`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-22.webp",
+      alt: `${groom} and ${bride} cheek to cheek, with the Burj Al Arab behind them`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-23.webp",
+      alt: `${bride} smiling at the camera as ${groom} kisses her forehead`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-24.webp",
+      alt: `${groom} and ${bride} strolling along the beach, with the Burj Al Arab in the distance`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-25.webp",
+      alt: `${bride} leaning in for a kiss from ${groom} on the beach, with the Burj Al Arab on the horizon`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-26.webp",
+      alt: `${groom} giving ${bride} a piggyback ride along the shore`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-27.webp",
+      alt: `Close-up of ${groom} in sunglasses smiling at ${bride} as the sea breeze lifts her hair`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-28.webp",
+      alt: `${groom} sweeping ${bride} off her feet on the beach`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-29.webp",
+      alt: `${bride} in her wedding gown, veil and tiara, holding a bouquet of red and white roses`,
+      width: 978,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-30.webp",
+      alt: `${bride} in her wedding gown and veil, holding her bouquet beside a tall window`,
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-31.webp",
+      alt: `${groom} and ${bride} in their wedding attire in a grand lobby with a patterned marble floor`,
+      width: 1200,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-32.webp",
+      alt: `${groom} and ${bride} in their wedding attire on a staircase beside an escalator`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-33.webp",
+      alt: `${groom} and ${bride} in their wedding attire beside a wall of copper slats`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-34.webp",
+      alt: `${groom} sitting on the stairs and holding ${bride}'s hand as she stands beside him`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-35.webp",
+      alt: `${groom} and ${bride} smiling side by side beside the copper slats`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-36.webp",
+      alt: `${groom} and ${bride} posing together on the staircase beside the escalator`,
+      width: 1066,
+      height: 1600,
+    },
+    {
+      src: "/images/gallery/photo-37.webp",
+      alt: `Close-up of ${bride} slipping the ring onto ${groom}'s finger`,
+      width: 1600,
+      height: 1066,
+    },
+    {
+      src: "/images/gallery/photo-38.webp",
+      alt: `${groom} and ${bride} walking hand in hand down a hallway of the Abu Dhabi Civil Family Court`,
+      width: 1200,
+      height: 1600,
     },
   ],
 

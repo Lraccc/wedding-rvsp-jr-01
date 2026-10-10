@@ -24,6 +24,8 @@ export type Venue = {
   mapEmbedUrl: string;
   /** Opened by the "Open in Google Maps" link. */
   mapUrl: string;
+  /** Shows a "Sample location only" mark on the card. Remove once the real venue is set. */
+  placeholder?: boolean;
 };
 
 export type Note = {
@@ -204,6 +206,7 @@ export const wedding: WeddingConfig = {
       address: "Tubod, Iligan City, Lanao del Norte",
       mapEmbedUrl: mapEmbed(ceremonyQuery),
       mapUrl: mapLink(ceremonyQuery),
+      placeholder: true,
     },
     {
       label: "Reception",
@@ -211,6 +214,7 @@ export const wedding: WeddingConfig = {
       address: "Gen. Luna St, Purok 2, Infanta, Quezon",
       mapEmbedUrl: mapEmbed(receptionQuery),
       mapUrl: mapLink(receptionQuery),
+      placeholder: true,
     },
   ],
 
@@ -469,6 +473,10 @@ export const wedding: WeddingConfig = {
       question: "What time should I arrive?",
       answer:
         "The ceremony begins at 2:00 in the afternoon. Please arrive by 1:30 PM so you can be seated before the processional.",
+    },
+    {
+      question: "Is there parking at the venues?",
+      answer: "Parking is limited at both venues, so we encourage carpooling.",
     },
     {
       question: "Can I take photos during the ceremony?",

@@ -18,7 +18,14 @@ export function VenueMap() {
             // Subgrid rows keep names, addresses and maps level across columns of any text length.
             className="row-span-5 grid grid-rows-subgrid justify-items-center py-12 text-center first:pt-0 last:pb-0 md:px-8 md:py-0 lg:px-12"
           >
-            <p className="text-label tracking-label text-rose uppercase">{venue.label}</p>
+            <div className="flex flex-col items-center">
+              <p className="text-label tracking-label text-rose uppercase">{venue.label}</p>
+              {venue.placeholder ? (
+                <p className="mt-3 rounded-full border border-dashed border-taupe-deep bg-linen px-3.5 py-1 text-label tracking-label text-rose uppercase">
+                  Sample location only
+                </p>
+              ) : null}
+            </div>
             <h3 className="mt-3 max-w-sm font-serif text-[1.65rem] leading-snug font-medium text-espresso">
               {venue.name}
             </h3>

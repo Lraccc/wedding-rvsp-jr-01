@@ -493,7 +493,7 @@ export const wedding: WeddingConfig = {
   ],
 
   music: {
-    src: "/audio/syempre-ikaw-lng.mp3", //how-do-i-live-sax-cover.mp3
+    src: "/audio/how-do-i-live-sax-cover.mp3", 
     volume: 0.55,
   },
 

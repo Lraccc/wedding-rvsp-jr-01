@@ -10,7 +10,6 @@ import { Hero } from "@/components/Hero";
 import { ImportantNotes } from "@/components/ImportantNotes";
 import { Rsvp } from "@/components/Rsvp";
 import { SiteShell } from "@/components/SiteShell";
-import { VenueMap } from "@/components/VenueMap";
 import { wedding } from "@/config/wedding";
 import { daysUntil } from "@/lib/countdown";
 
@@ -29,7 +28,6 @@ export default function Home() {
           <div id="home" className="scroll-mt-nav">
             <Hero />
             <Countdown initialDays={daysAtBuild} />
-            <VenueMap />
             <ImportantNotes />
             <Hashtag />
           </div>

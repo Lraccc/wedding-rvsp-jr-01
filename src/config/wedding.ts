@@ -151,7 +151,7 @@ const rsvpDeadline = "October 31, 2026";
 
 export const wedding: WeddingConfig = {
   site: {
-    url: "https://mark-robert-and-donabelle.vercel.app",
+    url: "https://mark-donabelle-wedding.onrender.com",
     title: `${groom} & ${bride} · December 18, 2026`,
     description: `You are invited to celebrate the marriage of ${groom} and ${bride} on Friday, December 18, 2026.`,
     ogImage: "/images/og-image.jpg",
@@ -469,10 +469,6 @@ export const wedding: WeddingConfig = {
       question: "What time should I arrive?",
       answer:
         "The ceremony begins at 2:00 in the afternoon. Please arrive by 1:30 PM so you can be seated before the processional.",
-    },
-    {
-      question: "Is there parking at the venues?",
-      answer: "Parking is limited at both venues, so we encourage carpooling.",
     },
     {
       question: "Can I take photos during the ceremony?",

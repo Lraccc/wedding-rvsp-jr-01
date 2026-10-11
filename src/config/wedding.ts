@@ -161,7 +161,7 @@ const receptionQuery = "Plaza Alemania Hotel, Quezon Avenue Extension, Iligan Ci
 
 const groom = "Mark Robert";
 const bride = "Donabelle";
-const rsvpDeadline = "October 31, 2026";
+const rsvpDeadline = "November 10, 2026";
 
 export const wedding: WeddingConfig = {
   site: {
@@ -238,10 +238,6 @@ export const wedding: WeddingConfig = {
       body: "We'd love to include everyone, but due to limited space, we're only able to accommodate those listed on the invitation. However, if you have a special circumstance and need to bring someone, please let us know in advance. We hope for your understanding. Thank you.",
     },
     {
-      title: "Unplugged Ceremony",
-      body: "A professional photographer will capture our special moments. Please turn off and put away your devices during the ceremony so you can be fully present with us.",
-    },
-    {
       title: "Gift Guide",
       body: "With all that we have, we've been truly blessed. Your presence and prayers are all that we request. But if you desire to give nonetheless, monetary gift is one we suggest.",
       showGiftQRs: true,
@@ -280,16 +276,16 @@ export const wedding: WeddingConfig = {
           names: [
             "Mr. Segfred A. Abuel",
             "Mr. Emerito B. Batara",
-            "Mr. Janus Noel A. Padilla",
             "Mr. Ferdie de Dios",
+            "Mr. Janus Noel A. Padilla",
           ],
         },
         {
           names: [
             "Bernadette T. Abuel",
             "Cynthia A. Batara",
-            "Beverly D. Padilla",
             "Chippy T. de Dios",
+            "Beverly D. Padilla",
           ],
         },
       ],
@@ -565,12 +561,6 @@ export const wedding: WeddingConfig = {
       height: 1600,
     },
     {
-      src: "/images/gallery/photo-32.webp",
-      alt: `${groom} and ${bride} in their wedding attire on a staircase beside an escalator`,
-      width: 1066,
-      height: 1600,
-    },
-    {
       src: "/images/gallery/photo-33.webp",
       alt: `${groom} and ${bride} in their wedding attire beside a wall of copper slats`,
       width: 1066,
@@ -579,12 +569,6 @@ export const wedding: WeddingConfig = {
     {
       src: "/images/gallery/photo-34.webp",
       alt: `${groom} sitting on the stairs and holding ${bride}'s hand as she stands beside him`,
-      width: 1066,
-      height: 1600,
-    },
-    {
-      src: "/images/gallery/photo-35.webp",
-      alt: `${groom} and ${bride} smiling side by side beside the copper slats`,
       width: 1066,
       height: 1600,
     },
@@ -601,10 +585,16 @@ export const wedding: WeddingConfig = {
       height: 1066,
     },
     {
-      src: "/images/gallery/photo-38.webp",
-      alt: `${groom} and ${bride} walking hand in hand down a hallway of the Abu Dhabi Civil Family Court`,
-      width: 1200,
-      height: 1600,
+      src: "/images/gallery/photo-39.webp",
+      alt: `${groom} raising a fist in celebration beside ${bride}, holding her bouquet, under the Abu Dhabi Civil Family Court sign`,
+      width: 961,
+      height: 1280,
+    },
+    {
+      src: "/images/gallery/photo-40.webp",
+      alt: `${groom} and ${bride} laughing together in the doorway of the Abu Dhabi Civil Family Court`,
+      width: 960,
+      height: 1280,
     },
   ],
 
@@ -650,11 +640,6 @@ export const wedding: WeddingConfig = {
         "Due to limited space, we can only accommodate the guests named on your invitation. If you have a special circumstance, please message us in advance.",
     },
     {
-      question: "Are children welcome?",
-      answer:
-        "We love your little ones! Apart from the children in our entourage, though, we have planned an adults-only celebration.",
-    },
-    {
       question: "What time should I arrive?",
       answer:
         "The ceremony begins at 2:00 in the afternoon. Please arrive by 1:30 PM so you can be seated before the processional.",
@@ -666,7 +651,7 @@ export const wedding: WeddingConfig = {
     {
       question: "Can I take photos during the ceremony?",
       answer:
-        "We are having an unplugged ceremony, so please keep your phone away until it ends. You are welcome to take photos at the reception. Share them with our hashtag!",
+        "Yes, of course! You are welcome to take photos and videos during the ceremony and the reception. Share them with our hashtag!",
     },
     {
       question: "What should I wear?",
@@ -676,12 +661,12 @@ export const wedding: WeddingConfig = {
     {
       question: "What gift should we give?",
       answer:
-        "Your presence and prayers are more than enough. If you wish to give, a monetary gift through the QR codes in our Gift Guide is greatly appreciated.",
+        "Anything from the heart is welcome, but your presence and prayers mean the most to us. If you wish to give a monetary gift, that is very much appreciated too, and you can send it through the QR code in our Gift Guide.",
     },
   ],
 
   music: {
-    src: "/audio/how-do-i-live-sax-cover.mp3", 
+    src: "/audio/how-do-i-live-sax-cover.mp3",
     volume: 0.55,
   },
 

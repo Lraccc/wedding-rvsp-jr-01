@@ -41,7 +41,7 @@ mistakes.
 | ---------------------------------------- | ------------------------------------------------ |
 | `public/images/couple-portrait.webp`     | Hero portrait under the couple's names           |
 | `public/images/hashtag-photo.webp`       | Full-width photo under the hashtag               |
-| `public/images/gallery/photo-01…38.webp` | Photos section, in the order listed in `gallery` |
+| `public/images/gallery/photo-01…40.webp` | Photos section, in the order listed in `gallery` |
 
 To swap a photo, replace the file (or point the config at a new one) and update its `width`,
 `height` and `alt` in the config, so the page reserves the right space and screen readers describe

@@ -13,8 +13,8 @@
 |---|---|
 | Mr. Segfred A. Abuel | Bernadette T. Abuel |
 | Mr. Emerito B. Batara | Cynthia A. Batara |
-| Mr. Janus Noel A. Padilla | Beverly D. Padilla |
 | Mr. Ferdie de Dios | Chippy T. de Dios |
+| Mr. Janus Noel A. Padilla | Beverly D. Padilla |
 
 ---
 

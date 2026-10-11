@@ -1,12 +1,16 @@
-import { Camera, Gem, Heart } from "lucide-react";
+import { Camera, Gem, Heart, Video } from "lucide-react";
 import Image from "next/image";
 import { wedding } from "@/config/wedding";
+import { ButtonLink } from "./ButtonLink";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-/** Screen 6: how guests share their photos with the wedding hashtag, then a full-width photo. */
+/**
+ * Screen 6: how guests share their photos with the wedding hashtag, a link to send a video
+ * greeting, then a full-width photo.
+ */
 export function Hashtag() {
-  const { hashtag, couple } = wedding;
+  const { hashtag, couple, greetings } = wedding;
 
   return (
     <section aria-labelledby="hashtag-title" className="pt-section">
@@ -56,6 +60,12 @@ export function Hashtag() {
           <p className="mx-auto mt-6 max-w-xl font-serif text-[1.3rem] leading-relaxed text-rosewood italic">
             {hashtag.closing}
           </p>
+          {greetings.cloudinary.cloudName ? (
+            <ButtonLink href="/greetings" className="mt-8">
+              <Video className="size-4" strokeWidth={1.5} aria-hidden="true" />
+              {greetings.cta}
+            </ButtonLink>
+          ) : null}
           <p className="mt-8 font-serif text-lg text-rosewood italic">{hashtag.signOff}</p>
           <p className="mt-1 inline-flex items-center gap-2 font-script text-[clamp(2rem,7vw,2.6rem)] leading-tight text-crimson">
             {couple.groom} &amp; {couple.bride}

@@ -1,0 +1,72 @@
+# Puts the guests' video greetings (uploaded to Cloudinary from /greetings) together into one
+# video and publishes it as the "greetings" release. See "Video greetings" in the README.
+name: Greetings compilation
+
+on:
+  schedule:
+    # Every 3 hours. Off the hour, when GitHub is less busy and runs start on time.
+    - cron: "17 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Rebuild even if no greetings were added or deleted
+        type: boolean
+        default: false
+
+# One run at a time, so two runs never publish over each other.
+concurrency:
+  group: greetings-compilation
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  compile:
+    # Does nothing until Cloudinary is set up.
+    if: vars.CLOUDINARY_CLOUD_NAME != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
+      CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+      CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check for new or deleted greetings
+        id: check
+        run: node scripts/compile-greetings.mjs check
+        env:
+          FORCE: ${{ inputs.force }}
+
+      - name: Install ffmpeg
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-dejavu-core
+
+      # Clips converted by earlier runs, so only new greetings are converted.
+      - name: Restore converted clips
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/cache/restore@v4
+        with:
+          path: greetings-build/normalized
+          key: greetings-${{ github.run_id }}
+          restore-keys: greetings-
+
+      - name: Build and publish the video
+        if: steps.check.outputs.changed == 'true'
+        run: node scripts/compile-greetings.mjs build
+
+      - name: Save converted clips
+        if: steps.check.outputs.changed == 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: greetings-build/normalized
+          key: greetings-${{ github.run_id }}

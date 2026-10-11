@@ -77,6 +77,50 @@ the start of the file has downloaded, and cover art sits at the start.
 - **Search engines:** `site.allowIndexing` is `false`, so the invitation asks not to be indexed.
   Set it to `true` if you want it to appear in search results.
 
+### Video greetings
+
+Guests record or upload a greeting of up to a minute at `/greetings`. A GitHub workflow combines
+all the greetings into one 1920×1080 video every 3 hours. Each greeting is labelled with the
+guest's name, and portrait clips get a blurred background on the sides. The couple watch it at
+`/greetings/watch` or download it from the `greetings` release. Until `greetings.cloudinary.cloudName`
+is set, the page says "open soon", the invitation hides its button, and the workflow does nothing.
+
+The site is static, so two free services do the work: guests' videos upload straight to
+[Cloudinary](https://cloudinary.com), and GitHub Actions runs ffmpeg to combine them.
+
+**Set it up once:**
+
+1. Create a free Cloudinary account. Under **Settings → Upload → Upload presets**, add a preset
+   with these settings:
+   - **Name:** `wedding_greetings`
+   - **Signing mode:** Unsigned
+   - **Asset folder:** `greetings`
+   - **Allowed formats:** `mp4,mov,m4v,webm,3gp`
+   - Leave moderation off. Presets have no size limit setting: the page turns away videos over
+     100 MB, and Cloudinary's free plan refuses them too.
+2. In `src/config/wedding.ts`, set `greetings.cloudinary.cloudName` to the cloud name shown on
+   the Cloudinary dashboard.
+3. In the GitHub repository, open **Settings → Secrets and variables → Actions**:
+   - Add a **variable** `CLOUDINARY_CLOUD_NAME`.
+   - Add **secrets** `CLOUDINARY_API_KEY` and `CLOUDINARY_API_SECRET`. All three values are on
+     the Cloudinary dashboard under API Keys.
+4. Push. Send a test greeting, then open **Actions → Greetings compilation → Run workflow**.
+
+**Day to day:**
+
+- **Rebuild now:** **Actions → Greetings compilation → Run workflow**. Tick "Rebuild" to rebuild
+  even when no greetings changed.
+- **Remove a greeting:** delete it in Cloudinary's Media Library (`greetings` folder). The next
+  run leaves it out.
+- **Read the guests' notes:** each video's name and note are in its details in the Media Library.
+- **Keep it running:** GitHub pauses scheduled workflows after 60 days with no activity in the
+  repository. Pushing any commit, or running the workflow by hand, starts it again.
+- **Privacy:** the repository is public, so anyone browsing its Releases page can find the video.
+  Anyone with the `/greetings` link can upload, and every upload goes into the video.
+- **Try it on your computer:** with ffmpeg installed, run
+  `node scripts/compile-greetings.mjs local <folder of videos>`. The result is
+  `greetings-build/greetings-compilation.mp4`.
+
 ### Design tokens
 
 Tailwind v4 is configured in CSS: the `@theme` block at the top of `src/app/globals.css` holds the
@@ -132,13 +176,16 @@ default is older.
 ```
 src/
   app/            layout (fonts, metadata), page, global styles and theme, icons
+    greetings/    video greetings page, and watch/ for the combined video
   components/     Envelope, Nav, Hero, Countdown, VenueMap, ImportantNotes, GiftQR, Hashtag,
                   Entourage, Gallery, Lightbox, AttireGuide, Faqs, Rsvp, Footer, FloralDecor,
-                  MusicToggle, and small shared pieces
+                  MusicToggle, GreetingRecorder, CompilationPlayer, and small shared pieces
   config/         wedding.ts: all editable content
   hooks/          useAudio, useIntro, useActiveSection, useDaysUntil, useIsClient
-  lib/            small helpers
+  lib/            small helpers, and the Cloudinary upload
 public/
   images/         portrait, church photo, gallery, QR codes, link-preview image
   audio/          background music
+scripts/
+  compile-greetings.mjs   combines the video greetings (run by .github/workflows/)
 ```

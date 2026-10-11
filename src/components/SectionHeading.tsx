@@ -9,22 +9,31 @@ type SectionHeadingProps = {
   /** Small decorative icon above the eyebrow. */
   icon?: ReactNode;
   className?: string;
+  /** `h1` on pages where this heading is the page title. */
+  as?: "h1" | "h2";
   children: ReactNode;
 };
 
-export function SectionHeading({ id, eyebrow, icon, className, children }: SectionHeadingProps) {
+export function SectionHeading({
+  id,
+  eyebrow,
+  icon,
+  className,
+  as: Heading = "h2",
+  children,
+}: SectionHeadingProps) {
   return (
     <Reveal className={cn("text-center", className)}>
       {icon}
       {eyebrow ? (
         <p className="mb-2 text-label tracking-label text-rosewood uppercase">{eyebrow}</p>
       ) : null}
-      <h2
+      <Heading
         id={id}
         className="font-serif text-[clamp(2.5rem,6.5vw,3.75rem)] leading-[1.1] font-normal text-crimson italic"
       >
         {children}
-      </h2>
+      </Heading>
       <Flourish className="mx-auto mt-5 w-36 text-gold" />
     </Reveal>
   );

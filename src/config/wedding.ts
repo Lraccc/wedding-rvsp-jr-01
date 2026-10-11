@@ -130,6 +130,26 @@ export type WeddingConfig = {
     signOff: string;
     photo: Photo;
   };
+  greetings: {
+    /** Small capitals above the heading. */
+    eyebrow: string;
+    heading: string;
+    intro: string;
+    /** Label of the button in the hashtag section that opens the greetings page. */
+    cta: string;
+    thankYou: string;
+    /** Longest greeting, in seconds. Recording stops here and longer videos are turned away. */
+    maxSeconds: number;
+    /** Cloudinary's free plan refuses videos over 100 MB. */
+    maxFileMB: number;
+    /**
+     * Guests' videos upload straight to Cloudinary. Leave `cloudName` empty to hide the
+     * greetings button and show "open soon" on the page until the account is set up.
+     */
+    cloudinary: { cloudName: string; uploadPreset: string };
+    /** The combined video, published by the "Greetings compilation" GitHub workflow. */
+    compilationUrl: string;
+  };
   entourage: EntourageGroup[];
   gallery: Photo[];
   attire: {
@@ -265,6 +285,19 @@ export const wedding: WeddingConfig = {
       height: 1066,
       position: "center 80%",
     },
+  },
+
+  greetings: {
+    eyebrow: "Send your love",
+    heading: "Video Greetings",
+    intro: `Record a short message for ${groom} & ${bride}, up to one minute long. Every greeting will be put together into one video for them to keep.`,
+    cta: "Send a video greeting",
+    thankYou: "Thank you! Your greeting is on its way to the couple.",
+    maxSeconds: 60,
+    maxFileMB: 100,
+    cloudinary: { cloudName: "fn9yk2m1", uploadPreset: "wedding_greetings" },
+    compilationUrl:
+      "https://github.com/Lraccc/wedding-rvsp-jr-01/releases/download/greetings/greetings-compilation.mp4",
   },
 
   // Side-by-side columns are shown as pairs: the nth name of each column shares a row.

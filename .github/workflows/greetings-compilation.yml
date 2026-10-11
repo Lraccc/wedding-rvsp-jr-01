@@ -25,7 +25,8 @@ jobs:
   compile:
     # Does nothing until Cloudinary is set up.
     if: vars.CLOUDINARY_CLOUD_NAME != ''
-    runs-on: ubuntu-latest
+    # Pinned to the Ubuntu this was tested on, so a runner upgrade can't change it before the wedding.
+    runs-on: ubuntu-24.04
     timeout-minutes: 120
     env:
       CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
@@ -33,9 +34,9 @@ jobs:
       CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
       GH_TOKEN: ${{ github.token }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
 
@@ -54,7 +55,7 @@ jobs:
       # Clips converted by earlier runs, so only new greetings are converted.
       - name: Restore converted clips
         if: steps.check.outputs.changed == 'true'
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: greetings-build/normalized
           key: greetings-${{ github.run_id }}
@@ -66,7 +67,7 @@ jobs:
 
       - name: Save converted clips
         if: steps.check.outputs.changed == 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: greetings-build/normalized
           key: greetings-${{ github.run_id }}

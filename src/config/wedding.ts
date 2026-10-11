@@ -358,6 +358,7 @@ export const wedding: WeddingConfig = {
             "Mr. Rick Grist & Mrs. Genelyn Grist",
             "Mr. Tyrron Rode & Mrs. Christine Rode",
             "Mr. Isagani & Mrs. Jean Mendoza",
+            "Mr. Steve and Mrs. Mandy Spraggette",
           ],
         },
       ],

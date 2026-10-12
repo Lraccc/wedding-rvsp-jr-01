@@ -6,8 +6,9 @@ It is a fully static site, so it can be hosted for free on Vercel, Netlify or Cl
 
 **Stack:** Next.js 16 (App Router, static export) · TypeScript · Tailwind CSS v4 ·
 Framer Motion · `next/font` (Great Vibes, Cormorant Garamond, Inter) · lucide-react.
-There is no backend: RSVPs go to a Google Form, guests share their photos on Facebook or
-Instagram with the wedding hashtag, and maps are Google Maps embeds.
+There is no backend: RSVPs and video greetings upload straight from the browser to Cloudinary,
+guests share their photos on Facebook or Instagram with the wedding hashtag, and maps are Google
+Maps embeds.
 
 ## Run it locally
 
@@ -30,7 +31,7 @@ npm run dev          # http://localhost:3000
 ## Edit the content
 
 Everything a couple would change lives in **`src/config/wedding.ts`**: names, monogram, date and
-time lines, envelope title and verse, hero wording, venues and map links, RSVP form and deadline,
+time lines, envelope title and verse, hero wording, venues and map links, RSVP page and deadline,
 notes, gift QR codes, hashtag and photo-sharing steps, entourage, gallery, attire guide, FAQs,
 music, and the site URL used for link previews. Each field is typed, so your editor will flag
 mistakes.
@@ -67,8 +68,8 @@ the start of the file has downloaded, and cover art sits at the start.
 
 ### Links
 
-- **RSVP:** set `rsvp.formUrl` to your Google Form's share link. To also show the form on the
-  page, open the form, choose **Send → `<>`**, and paste the iframe's `src` into `rsvp.embedUrl`.
+- **RSVP:** guests answer on the site's own `/rsvp` page (see [RSVP](#rsvp) below).
+  `rsvp.formUrl` is the Google Form, offered there if a response can't be sent.
 - **Maps:** each venue builds its embed and "Open in Google Maps" links from the venue name. For an
   exact pin, open the place in Google Maps, choose **Share → Embed a map**, and paste only the
   iframe's `src` into `mapEmbedUrl`.
@@ -76,6 +77,77 @@ the start of the file has downloaded, and cover art sits at the start.
   `https://mark-robert-and-donabelle.vercel.app`).
 - **Search engines:** `site.allowIndexing` is `false`, so the invitation asks not to be indexed.
   Set it to `true` if you want it to appear in search results.
+
+### RSVP
+
+The **RSVP Here** button opens `/rsvp`, which asks the same questions as the Google Form: whether
+the guest can attend, and the complete name of each attendee. Each response is saved to
+[Cloudinary](https://cloudinary.com) as a small text file in the `rsvp` folder, for example
+`juan-dela-cruz-attending.txt`:
+
+```
+RSVP · Mark Robert & Donabelle · December 18, 2026
+
+Can you attend?
+Yes, I’ll be there
+
+Complete name of the attendee/s:
+Juan Dela Cruz
+Maria Dela Cruz
+
+Sent October 12, 2026 at 2:05 PM, Philippine time
+```
+
+The wording of the page and the questions is under `rsvp` in the config.
+
+**Set it up once:** in Cloudinary, under **Settings → Upload → Upload presets**, add a preset with
+these settings:
+
+- **Name:** `wedding_rsvp`
+- **Signing mode:** Unsigned
+- **Asset folder:** `rsvp`
+- **Allowed formats:** `txt`
+
+It uses the same Cloudinary account as the video greetings (`cloudinaryCloudName` in the config).
+Until the preset exists, sending fails and the page points guests to the Google Form. If
+`rsvp.cloudinary.cloudName` is empty, the page shows a button to the Google Form instead of the
+form.
+
+**The couple's guest list:** tapping the couple's names in the footer of any page opens
+`/rsvp/guests`. It shows everyone who answered, split into attending and can't make it, with a
+**Download Excel** button (one sheet each). Someone who answered more than once is listed once,
+with their latest answer, and new RSVPs show up within a minute.
+
+It reads Cloudinary's list of the files tagged `rsvp`, which Cloudinary blocks until you allow it
+once: under **Settings → Security → Restricted media types**, untick **Resource list** and save.
+Until then the page says the guest list isn't switched on yet.
+
+The guest list is hidden, not locked: there is no password, so anyone who finds the link (or the
+list's address in the site's code) can see the names. Search engines are asked not to index it.
+
+**Other ways to read the responses:**
+
+- **In Cloudinary:** open the `rsvp` folder in the Media Library. Each file is named after the
+  first guest and says `attending` or `not-attending`; the tags of the same names filter the list.
+  A file's details show its answers under contextual metadata, or open it to read the text.
+- **As a spreadsheet:** create `.env.local` in the project folder with the three values from the
+  Cloudinary dashboard's API Keys page:
+
+  ```
+  CLOUDINARY_CLOUD_NAME=...
+  CLOUDINARY_API_KEY=...
+  CLOUDINARY_API_SECRET=...
+  ```
+
+  Then run `npm run rsvp:export`. It prints how many guests are coming and writes every response,
+  oldest first, to `rsvp-responses.csv`, which opens in Excel or Google Sheets. `.gitignore` keeps
+  both files out of the public repository.
+
+- **Answered twice?** Both responses are kept; the later one is the guest's latest answer. Delete
+  a response by deleting its file in the Media Library.
+- **Privacy:** anyone with the `/rsvp` link can send a response, and each file can be opened by
+  anyone who has its link. The links are random, and only the guest list, the CSV and your
+  Cloudinary account list them.
 
 ### Video greetings
 
@@ -177,15 +249,18 @@ default is older.
 src/
   app/            layout (fonts, metadata), page, global styles and theme, icons
     greetings/    video greetings page, and watch/ for the combined video
+    rsvp/         RSVP form page, and guests/ for the couple's guest list
   components/     Envelope, Nav, Hero, Countdown, VenueMap, ImportantNotes, GiftQR, Hashtag,
-                  Entourage, Gallery, Lightbox, AttireGuide, Faqs, Rsvp, Footer, FloralDecor,
-                  MusicToggle, GreetingRecorder, CompilationPlayer, and small shared pieces
+                  Entourage, Gallery, Lightbox, AttireGuide, Faqs, Rsvp, RsvpForm, GuestList,
+                  Footer, FloralDecor, MusicToggle, GreetingRecorder, CompilationPlayer, and
+                  small shared pieces
   config/         wedding.ts: all editable content
   hooks/          useAudio, useIntro, useActiveSection, useDaysUntil, useIsClient
-  lib/            small helpers, and the Cloudinary upload
+  lib/            small helpers, the Cloudinary uploads, the guest list and its Excel file
 public/
   images/         portrait, church photo, gallery, QR codes, link-preview image
   audio/          background music
 scripts/
   compile-greetings.mjs   combines the video greetings (run by .github/workflows/)
+  export-rsvps.mjs        saves the RSVPs to a spreadsheet (npm run rsvp:export)
 ```

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { wedding } from "@/config/wedding";
 import { PAGE_END_ID } from "@/lib/ids";
 import { Reveal } from "./Reveal";
@@ -15,9 +16,13 @@ export function Footer() {
         />
         <p className="mt-7 font-serif text-xl text-gold-light italic">{closing.message}</p>
         <p className="mt-1 font-script text-[clamp(2.25rem,8.5vw,3rem)] leading-tight">
-          <span className="text-gradient bg-linear-to-b from-[#f6e6b8] via-gold-light to-[#c9a766]">
-            {couple.groom} &amp; {couple.bride}
-          </span>
+          {/* The couple's hidden way in to their guest list. */}
+          <Link href="/rsvp/guests">
+            <span className="text-gradient bg-linear-to-b from-[#f6e6b8] via-gold-light to-[#c9a766]">
+              {couple.groom} &amp; {couple.bride}
+            </span>
+            <span className="sr-only">: guest list</span>
+          </Link>
         </p>
         <p className="mt-4 text-label tracking-label text-paper/80 uppercase">{date.display}</p>
         <p className="mt-1 font-serif text-lg text-paper">{hashtag.tag}</p>

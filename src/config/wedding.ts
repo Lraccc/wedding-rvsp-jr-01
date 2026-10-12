@@ -105,14 +105,23 @@ export type WeddingConfig = {
     photo: Photo;
   };
   rsvp: {
+    /** The Google Form, offered on the RSVP page if a response can't be sent. */
     formUrl: string;
-    /**
-     * Optional. To show the form on the page, open your Google Form → Send → "<>" (embed)
-     * and paste the iframe `src` here. Leave empty to show only the button.
-     */
-    embedUrl: string;
     deadline: string;
+    /** Shown in the RSVP section of the invitation, above the button to the RSVP page. */
     message: string;
+    /** The RSVP page (/rsvp) opens with these, above the deadline and the form. */
+    tagline: string;
+    intro: string;
+    /** Shown under the form. */
+    closing: string;
+    questions: { attend: string; yes: string; no: string; names: string };
+    thankYou: { yes: string; no: string };
+    /**
+     * Each response is saved to Cloudinary as a text file. Leave `cloudName` empty to send
+     * guests to the Google Form instead.
+     */
+    cloudinary: { cloudName: string; uploadPreset: string };
   };
   venues: Venue[];
   notes: Note[];
@@ -182,6 +191,8 @@ const receptionQuery = "Plaza Alemania Hotel, Quezon Avenue Extension, Iligan Ci
 const groom = "Mark Robert";
 const bride = "Donabelle";
 const rsvpDeadline = "November 10, 2026";
+// The Cloudinary account that receives the video greetings and the RSVPs.
+const cloudinaryCloudName = "fn9yk2m1";
 
 export const wedding: WeddingConfig = {
   site: {
@@ -228,11 +239,25 @@ export const wedding: WeddingConfig = {
   },
 
   rsvp: {
-    formUrl: "https://forms.gle/your-google-form-id",
-    embedUrl: "",
+    formUrl: "https://forms.gle/EzxEQbRRSpzq3jsU6",
     deadline: rsvpDeadline,
     message:
       "Your presence is the most precious gift. Kindly let us know if you can celebrate with us by filling out our RSVP form.",
+    tagline: "The countdown is on, and we’re saving you a seat!",
+    intro: `Please join us as we celebrate the wedding of ${groom} and ${bride} Gummery.`,
+    closing:
+      "Your presence means so much to us, and we can’t wait to celebrate this special day with you!",
+    questions: {
+      attend: "Can you attend?",
+      yes: "Yes, I’ll be there",
+      no: "Sorry, can’t make it",
+      names: "Complete name of the attendee/s",
+    },
+    thankYou: {
+      yes: "Thank you! Your seat is saved. We can’t wait to see you on December 18.",
+      no: "Thank you for letting us know. You will be missed, and we are grateful for your love and prayers.",
+    },
+    cloudinary: { cloudName: cloudinaryCloudName, uploadPreset: "wedding_rsvp" },
   },
 
   venues: [
@@ -295,7 +320,7 @@ export const wedding: WeddingConfig = {
     thankYou: "Thank you! Your greeting is on its way to the couple.",
     maxSeconds: 60,
     maxFileMB: 100,
-    cloudinary: { cloudName: "fn9yk2m1", uploadPreset: "wedding_greetings" },
+    cloudinary: { cloudName: cloudinaryCloudName, uploadPreset: "wedding_greetings" },
     compilationUrl:
       "https://github.com/Lraccc/wedding-rvsp-jr-01/releases/download/greetings/greetings-compilation.mp4",
   },
@@ -691,7 +716,7 @@ export const wedding: WeddingConfig = {
   faqs: [
     {
       question: "When is the RSVP deadline?",
-      answer: `Please confirm your attendance through our Google Form on or before ${rsvpDeadline} so we can prepare your seat.`,
+      answer: `Please confirm your attendance through the RSVP form at the end of this invitation on or before ${rsvpDeadline} so we can prepare your seat.`,
     },
     {
       question: "Can I bring a plus one?",

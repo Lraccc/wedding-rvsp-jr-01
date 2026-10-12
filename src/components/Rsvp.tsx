@@ -24,21 +24,10 @@ export function Rsvp() {
           Please respond on or before{" "}
           <span className="font-semibold text-crimson">{rsvp.deadline}</span>
         </p>
-        <ButtonLink href="https://forms.gle/EzxEQbRRSpzq3jsU6" className="mt-9">
+        <ButtonLink href="/rsvp" className="mt-9">
           RSVP Here
         </ButtonLink>
       </Reveal>
-
-      {rsvp.embedUrl ? (
-        <Reveal className="mx-auto mt-14 w-full max-w-2xl">
-          <iframe
-            src={rsvp.embedUrl}
-            title="RSVP form"
-            loading="lazy"
-            className="h-[70rem] w-full rounded-xl border border-gold/40 bg-white shadow-card"
-          />
-        </Reveal>
-      ) : null}
     </section>
   );
 }

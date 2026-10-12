@@ -42,3 +42,6 @@ next-env.d.ts
 
 # video greetings build files (scripts/compile-greetings.mjs)
 /greetings-build/
+
+# guests' RSVPs, exported by scripts/export-rsvps.mjs (the repository is public)
+/rsvp-responses.csv

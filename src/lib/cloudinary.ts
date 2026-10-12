@@ -1,7 +1,8 @@
 /**
- * Uploads a video from the browser to Cloudinary with an unsigned upload preset, so the
- * static site needs no server. The preset (set up in Cloudinary) decides the asset folder,
- * allowed formats and size limit; see "Video greetings" in the README.
+ * Uploads from the browser to Cloudinary with unsigned upload presets, so the static site
+ * needs no server: guests' video greetings, and RSVPs saved as small text files. Each preset
+ * (set up in Cloudinary) decides the asset folder and allowed formats; see "Video greetings"
+ * and "RSVP" in the README.
  */
 
 // Cloudinary wants every chunk but the last to be over 5 MB.
@@ -31,10 +32,7 @@ export async function uploadVideo({
   onProgress,
 }: UploadOptions) {
   const url = `https://api.cloudinary.com/v1_1/${cloudName}/video/upload`;
-  const contextValue = Object.entries(context)
-    .filter(([, value]) => value)
-    .map(([key, value]) => `${key}=${escapeContext(value)}`)
-    .join("|");
+  const contextValue = toContextValue(context);
 
   // Larger files go up in chunks, so a dropped connection only repeats one chunk.
   const isChunked = file.size > CHUNK_SIZE;
@@ -55,11 +53,42 @@ export async function uploadVideo({
       : {};
 
     await withRetries(() =>
-      send(url, body, headers, (loaded) => onProgress((start + loaded) / file.size)),
+      send(url, body, headers, (loaded) => onProgress((start + loaded) / file.size), "video"),
     );
   }
 
   onProgress(1);
+}
+
+type TextUploadOptions = {
+  cloudName: string;
+  uploadPreset: string;
+  text: string;
+  fileName: string;
+  /** Stored with the file as contextual metadata, so it can be read without opening it. */
+  context: Record<string, string>;
+  /** Shown in Cloudinary's Media Library, where files can be filtered by tag. */
+  tags: string[];
+};
+
+/** Saves a short text, such as an RSVP, as a raw file. */
+export async function uploadText({
+  cloudName,
+  uploadPreset,
+  text,
+  fileName,
+  context,
+  tags,
+}: TextUploadOptions) {
+  const url = `https://api.cloudinary.com/v1_1/${cloudName}/raw/upload`;
+  const body = new FormData();
+  body.append("file", new Blob([text], { type: "text/plain;charset=utf-8" }), fileName);
+  body.append("upload_preset", uploadPreset);
+  const contextValue = toContextValue(context);
+  if (contextValue) body.append("context", contextValue);
+  if (tags.length > 0) body.append("tags", tags.join(","));
+
+  await withRetries(() => send(url, body, {}, () => {}, "file"));
 }
 
 function send(
@@ -67,6 +96,8 @@ function send(
   body: FormData,
   headers: Record<string, string>,
   onLoaded: (bytes: number) => void,
+  /** What is being sent, for error messages. */
+  noun: string,
 ) {
   // XHR rather than fetch: fetch can't report upload progress.
   return new Promise<void>((resolve, reject) => {
@@ -76,7 +107,7 @@ function send(
     xhr.upload.onprogress = (event) => onLoaded(event.loaded);
     xhr.onload = () => {
       if (xhr.status >= 200 && xhr.status < 300) return resolve();
-      const message = readCloudinaryError(xhr.responseText);
+      const message = readCloudinaryError(xhr.responseText, noun);
       // Server errors are worth retrying; a refused file (4xx) will be refused again.
       reject(xhr.status >= 500 ? new Error(message) : new UploadError(message));
     };
@@ -99,14 +130,21 @@ async function withRetries(attempt: () => Promise<void>) {
   }
 }
 
-function readCloudinaryError(responseText: string) {
+function readCloudinaryError(responseText: string, noun: string) {
   try {
     const message = JSON.parse(responseText)?.error?.message;
-    if (typeof message === "string") return `Cloudinary refused the video: ${message}`;
+    if (typeof message === "string") return `Cloudinary refused the ${noun}: ${message}`;
   } catch {
     // Not JSON; fall through to the generic message.
   }
-  return "The video could not be sent. Please try again.";
+  return `The ${noun} could not be sent. Please try again.`;
+}
+
+function toContextValue(context: Record<string, string>) {
+  return Object.entries(context)
+    .filter(([, value]) => value)
+    .map(([key, value]) => `${key}=${escapeContext(value)}`)
+    .join("|");
 }
 
 // `=` and `|` separate context entries, so Cloudinary needs them escaped inside values.

@@ -30,12 +30,12 @@ export function Countdown({ initialDays }: CountdownProps) {
           <DaysAway days={days} />
         </p>
 
-        <ButtonLink href="https://forms.gle/EzxEQbRRSpzq3jsU6" tone="gold" className="mt-9">
+        <ButtonLink href="/rsvp" tone="gold" className="mt-9">
           RSVP Here
         </ButtonLink>
 
         <p className="mx-auto mt-7 max-w-md text-label tracking-label text-paper/80 uppercase">
-          We kindly request that you confirm your attendance by completing the Google Form on or
+          We kindly request that you confirm your attendance by completing our RSVP form on or
           before {rsvp.deadline}
         </p>
       </Reveal>

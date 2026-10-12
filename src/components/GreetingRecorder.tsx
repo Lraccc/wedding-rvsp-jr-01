@@ -7,6 +7,7 @@ import { wedding } from "@/config/wedding";
 import { useIsClient } from "@/hooks/useIsClient";
 import { cn } from "@/lib/cn";
 import { UploadError, uploadVideo } from "@/lib/cloudinary";
+import { fieldClass, secondaryButtonClass } from "@/lib/ui";
 import { buttonClass } from "./ButtonLink";
 
 type Step = "start" | "camera" | "recording" | "review" | "sending" | "sent";
@@ -22,12 +23,6 @@ const RECORDING_TYPES = [
 ];
 // About 20 MB a minute, well under Cloudinary's 100 MB limit.
 const VIDEO_BITS_PER_SECOND = 2_500_000;
-
-const secondaryButtonClass =
-  "inline-flex min-h-12 items-center justify-center gap-2 rounded-[2px] border border-gold/70 bg-paper px-8 py-3 text-label-lg font-medium tracking-label text-crimson uppercase transition-colors duration-300 hover:bg-champagne";
-
-const fieldClass =
-  "mt-2 w-full rounded-[2px] border border-gold/60 bg-ivory px-4 py-3 text-[1rem] text-wine placeholder:text-rosewood/55";
 
 /** Lets a guest record (or pick) a short video greeting and sends it to Cloudinary. */
 export function GreetingRecorder() {

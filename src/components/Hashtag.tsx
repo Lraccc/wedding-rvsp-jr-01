@@ -1,5 +1,6 @@
 import { Camera, Gem, Heart, Video } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { wedding } from "@/config/wedding";
 import { ButtonLink } from "./ButtonLink";
 import { Reveal } from "./Reveal";
@@ -67,13 +68,20 @@ export function Hashtag() {
             </ButtonLink>
           ) : null}
           <p className="mt-8 font-serif text-lg text-rosewood italic">{hashtag.signOff}</p>
-          <p className="mt-1 inline-flex items-center gap-2 font-script text-[clamp(2rem,7vw,2.6rem)] leading-tight text-crimson">
-            {couple.groom} &amp; {couple.bride}
-            <Heart
-              className="size-4 shrink-0 fill-current text-gold"
-              strokeWidth={0}
-              aria-hidden="true"
-            />
+          {/* The couple's way in to their combined greetings video. */}
+          <p className="mt-1 font-script text-[clamp(2rem,7vw,2.6rem)] leading-tight text-crimson">
+            <Link
+              href="/greetings/watch"
+              className="inline-flex items-center gap-2 transition-colors duration-300 hover:text-garnet"
+            >
+              {couple.groom} &amp; {couple.bride}
+              <Heart
+                className="size-4 shrink-0 fill-current text-gold"
+                strokeWidth={0}
+                aria-hidden="true"
+              />
+              <span className="sr-only">: watch the video greetings</span>
+            </Link>
           </p>
         </Reveal>
       </div>

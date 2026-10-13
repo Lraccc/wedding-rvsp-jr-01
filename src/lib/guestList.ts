@@ -28,11 +28,14 @@ type ListedFile = {
 /** Every RSVP, oldest first, from Cloudinary's public list of the files tagged "rsvp". */
 export async function fetchResponses(): Promise<RsvpResponse[]> {
   const { cloudName } = wedding.rsvp.cloudinary;
-  const url = `https://res.cloudinary.com/${cloudName}/raw/list/${RSVP_TAG}.json`;
+  // A fresh version on every request gets past Cloudinary's CDN, which ignores query strings
+  // and otherwise keeps serving an old answer, even the 401 from before lists were switched on.
+  const version = Math.floor(Date.now() / 1000);
+  const url = `https://res.cloudinary.com/${cloudName}/raw/list/v${version}/${RSVP_TAG}.json`;
 
   let files: ListedFile[];
   try {
-    // Cloudinary caches the list for a minute; skip the browser's own cache on top of that.
+    // Skip the browser's own cache too.
     const response = await fetch(url, { cache: "no-store" });
     // 404: no one has answered yet.
     if (response.status === 404) return [];

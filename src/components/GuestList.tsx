@@ -32,7 +32,7 @@ const fullDate = new Intl.DateTimeFormat("en-US", {
 });
 
 /**
- * The couple's list of who is coming, opened from the title above the envelope. It is hidden,
+ * The couple's list of who is coming, opened from their names in the footer of /rsvp. It is hidden,
  * not locked: anyone who finds /rsvp/guests can see it.
  */
 export function GuestList() {

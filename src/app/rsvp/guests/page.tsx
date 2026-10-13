@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 };
 
 /**
- * The couple's guest list, opened by tapping the title above the envelope. It is hidden, not
- * locked; see "RSVP" in the README.
+ * The couple's guest list, opened by tapping their names in the footer of /rsvp. It is hidden,
+ * not locked; see "RSVP" in the README.
  */
 export default function GuestListPage() {
   return (

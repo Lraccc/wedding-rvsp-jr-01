@@ -156,8 +156,8 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
           id={titleId}
           className="text-center font-script text-[clamp(2.75rem,9.5vw,4.75rem)] leading-[1.15] text-crimson"
         >
-          {/* Looks like plain text: the couple's hidden way in to their guest list. */}
-          <Link href="/rsvp/guests" className="[-webkit-tap-highlight-color:transparent]">
+          {/* Looks like plain text: the hidden way in to the combined video greetings. */}
+          <Link href="/greetings/watch" className="[-webkit-tap-highlight-color:transparent]">
             {envelope.title}
           </Link>
         </p>

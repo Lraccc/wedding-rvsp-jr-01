@@ -64,7 +64,7 @@ export default function RsvpPage() {
           {rsvp.closing}
         </p>
       </main>
-      <Footer />
+      <Footer linkToGuestList />
     </>
   );
 }

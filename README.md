@@ -113,9 +113,8 @@ Until the preset exists, sending fails and the page points guests to the Google 
 `rsvp.cloudinary.cloudName` is empty, the page shows a button to the Google Form instead of the
 form.
 
-**The couple's guest list:** tapping the title above the envelope ("Gummery Nuptials") opens
-`/rsvp/guests`. The title looks like plain text, and the list isn't linked anywhere else. After
-opening the invitation, the envelope button in the top-left corner brings the title back.
+**The couple's guest list:** on the RSVP page (`/rsvp`), tapping the couple's names in the footer
+opens `/rsvp/guests`. The names look like plain text, and the list isn't linked anywhere else.
 The guest list shows everyone who answered, split into attending and can't make it, with a
 **Download Excel** button (one sheet each). Someone who answered more than once is listed once,
 with their latest answer, and new RSVPs show up within a minute.
@@ -124,7 +123,7 @@ It reads Cloudinary's list of the files tagged `rsvp`, which Cloudinary blocks u
 once: under **Settings → Security → Restricted media types**, untick **Resource list** and save.
 Until then the page says the guest list isn't switched on yet.
 
-The guest list is hidden, not locked: there is no password, so anyone who taps the title or finds
+The guest list is hidden, not locked: there is no password, so anyone who taps the names or finds
 the link (or the list's address in the site's code) can see the names. Search engines are asked
 not to index it.
 
@@ -157,8 +156,8 @@ not to index it.
 Guests record or upload a greeting of up to a minute at `/greetings`. A GitHub workflow combines
 all the greetings into one 1920×1080 video every 3 hours. Each greeting is labelled with the
 guest's name, and portrait clips get a blurred background on the sides. The couple watch it at
-`/greetings/watch`, opened by tapping their names under "With love," near the end of the
-invitation, or download it from the `greetings` release. Until `greetings.cloudinary.cloudName`
+`/greetings/watch`, opened by tapping the title above the envelope ("Gummery Nuptials"), or
+download it from the `greetings` release. Until `greetings.cloudinary.cloudName`
 is set, the page says "open soon", the invitation hides its button, and the workflow does nothing.
 
 The site is static, so two free services do the work: guests' videos upload straight to

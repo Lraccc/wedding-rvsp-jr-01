@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: `Video greetings for ${couple.groom} & ${couple.bride} from their family and friends.`,
 };
 
-/** The couple's page for the combined video. It isn't linked from the invitation. */
+/** The couple's page for the combined video, opened from their menu (see CoupleMenu). */
 export default function GreetingsWatchPage() {
   return (
     <>

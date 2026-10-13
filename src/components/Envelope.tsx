@@ -4,6 +4,7 @@ import { motion, useAnimate, useReducedMotion, type Variants } from "framer-moti
 import { useEffect, useId, useRef, useState } from "react";
 import { wedding } from "@/config/wedding";
 import { useAudio } from "@/hooks/useAudio";
+import { CoupleMenu } from "./CoupleMenu";
 import { Flourish } from "./Flourish";
 import { WaxSeal } from "./WaxSeal";
 
@@ -54,6 +55,7 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
   const { envelope, couple, date, hashtag } = wedding;
   const [scope, animate] = useAnimate<HTMLDivElement>();
   const [phase, setPhase] = useState<Phase>("closed");
+  const [isCoupleMenuOpen, setIsCoupleMenuOpen] = useState(false);
   const hasStarted = useRef(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const reduceMotion = useReducedMotion();
@@ -155,8 +157,16 @@ export function Envelope({ onLetterOut, onOpened, onCovered, isReplay = false }:
           id={titleId}
           className="text-center font-script text-[clamp(2.75rem,9.5vw,4.75rem)] leading-[1.15] text-crimson"
         >
-          {envelope.title}
+          {/* Looks like plain text: the couple's hidden way in to their guest list and video. */}
+          <button
+            type="button"
+            onClick={() => setIsCoupleMenuOpen(true)}
+            className="[-webkit-tap-highlight-color:transparent]"
+          >
+            {envelope.title}
+          </button>
         </p>
+        <CoupleMenu open={isCoupleMenuOpen} onClose={() => setIsCoupleMenuOpen(false)} />
 
         <figure className="mt-1 max-w-2xl text-center">
           <figcaption className="text-label tracking-label text-rosewood uppercase">

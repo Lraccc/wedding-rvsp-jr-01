@@ -36,7 +36,7 @@
 
 ---
 
-### Bible Bearer
+### Bible Bearer  
 
 - Pierce Adam P. Patalinghug
 

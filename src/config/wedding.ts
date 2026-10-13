@@ -215,7 +215,7 @@ export const wedding: WeddingConfig = {
       reference: "Mark 10:9",
       text: "Therefore what God has joined together, let no one separate.",
     },
-    prompt: "Click to open",
+    prompt: "Click the envelop to open",
     letterGreeting: "You are invited",
   },
 
